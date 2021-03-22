@@ -26,17 +26,10 @@ apf_grad::apf_grad(resetter* _resetter) {
         theta_values.push_back(((2 * math::pi) / GRADIENT_SAMPLE_RATE) * i);
     }
 
-    cur_alignment = std::vector<float>{ 0.0f, 0.0f, 0.0f };
     reset_policy = _resetter;
 }
 
 redirection_unit apf_grad::update(float dx, float dy, float dtheta, simulation_state& sim_state, user* egocentric_user) {
-    visibility_polygon cur_phys_vis_poly = get_current_visibility_polygon(egocentric_user->state.get_phys_pos(), (environment*)(egocentric_user->physical_env()));
-    visibility_polygon cur_virt_vis_poly = get_current_visibility_polygon(egocentric_user->state.get_virt_pos(), sim_state.virt_env);
-
-    update_losses(cur_phys_vis_poly, cur_virt_vis_poly, sim_state, egocentric_user);
-    cur_alignment = std::vector<float>{ cur_north_loss, cur_east_loss, cur_west_loss };
-
     vec2f phys_pos = egocentric_user->state.get_phys_pos();
     std::deque<proximity_container*> prox_queue = egocentric_user->proximity_queue;
     trajectory_unit cur_move = egocentric_user->state.get_cur_move();
@@ -46,23 +39,6 @@ redirection_unit apf_grad::update(float dx, float dy, float dtheta, simulation_s
     steer_target = phys_pos + gradient_dir;
     redirection_unit next_redirection = set_gains(dx,dy,dtheta, cur_move, phys_heading);
     return next_redirection;
-}
-
-visibility_polygon apf_grad::get_current_visibility_polygon(vec2f pos, environment* env) {
-    return visibility_polygon(env, &pos);
-}
-
-void apf_grad::update_losses(visibility_polygon& phys_poly, visibility_polygon& virt_poly, simulation_state& sim_state, user* egocentric_user) {
-    vec2f phys_heading = rad_2_vec(egocentric_user->state.get_phys_heading());
-    vec2f virt_heading = rad_2_vec(egocentric_user->state.get_virt_heading());
-    phys_poly.compute_nearest_features(phys_heading);
-    virt_poly.compute_nearest_features(virt_heading);
-    cur_north_loss = phys_poly.distance_north - virt_poly.distance_north;
-    cur_east_loss = phys_poly.distance_east - virt_poly.distance_east;
-    cur_west_loss = phys_poly.distance_west - virt_poly.distance_west;
-    //cur_north_loss = math::abs(phys_poly.distance_north - virt_poly.distance_north);
-    //cur_east_loss = math::abs(phys_poly.distance_east - virt_poly.distance_east);
-    //cur_west_loss = math::abs(phys_poly.distance_west - virt_poly.distance_west);
 }
 
 vec2f apf_grad::compute_gradient(physical_environment* phys_env, std::deque<proximity_container*> prox_queue, vec2f phys_pos) {

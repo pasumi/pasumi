@@ -44,7 +44,6 @@ class user : public object {
         void write(int paths_increment);
         char* get_redirector_name();
         void reset_state(environment* phys_env, environment* virt_env);
-        std::vector<std::vector<vec2f>> get_gradient_data();
         void add_other_users(std::vector<user*> users);
         void step_until_collision(float t);
         void trigger_reset_on_next_step();

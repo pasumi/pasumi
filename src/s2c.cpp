@@ -15,65 +15,12 @@ s2c::s2c(resetter* _resetter) {
 	cur_curve_per_deg = curve_radius_to_deg_per_meter();
 	curve_dir = 1; // curve to the left of the user == 1. curve to the right of the user == -1
 
-	cur_alignment = std::vector<float>{ 0.0f, 0.0f, 0.0f };
-
 	reset_policy = _resetter;
 }
 
 redirection_unit s2c::update(float dx, float dy, float dtheta, simulation_state& sim_state, user* egocentric_user) {
-	visibility_polygon cur_phys_vis_poly = get_current_visibility_polygon(egocentric_user->state.get_phys_pos(), (environment*)(egocentric_user->physical_env()));
-	visibility_polygon cur_virt_vis_poly = get_current_visibility_polygon(egocentric_user->state.get_virt_pos(), sim_state.virt_env);
-
-	update_losses(cur_phys_vis_poly, cur_virt_vis_poly, sim_state, egocentric_user);
-	cur_alignment = std::vector<float>{ cur_north_loss, cur_east_loss, cur_west_loss };
-
 	redirection_unit redir_unit = set_gains(dx, dy, dtheta, egocentric_user->state.get_phys_heading(), egocentric_user->state.get_phys_pos());
 	return redir_unit;
-}
-
-visibility_polygon s2c::get_current_visibility_polygon(vec2f pos, environment* env) {
-	// https://github.com/trylock/visibility
-	using vector_type = geometry::vec2;
-	using segment_type = geometry::line_segment<vector_type>;
-	using segment_comparer_type = geometry::line_segment_dist_comparer<vector_type>;
-	using angle_comparer_type = geometry::angle_comparer<vector_type>;
-	using namespace geometry;
-
-	std::vector<segment_type> segments;
-	for (int i = 0; i < env->get_vertices().size(); i++) {
-		vec2f* p1 = env->get_vertices()[i];
-		vec2f* p2 = env->get_vertices()[(i + 1) % env->get_vertices().size()];
-		segments.push_back({ {p1->x, p1->y}, {p2->x, p2->y} });
-	}
-	for (obstacle* o : env->get_obstacles()) {
-		for (int i = 0; i < o->get_vertices().size(); i++) {
-			vec2f* p1 = o->get_vertices()[i];
-			vec2f* p2 = o->get_vertices()[(i + 1) % o->get_vertices().size()];
-			segments.push_back({ {p1->x, p1->y}, {p2->x, p2->y} });
-		}
-	}
-
-	//auto poly = visibility_polygon2(vector_type{ pos.x, pos.y }, segments.begin(), segments.end());
-	//std::vector<vec2f> temp;
-	//for (vec2 p : poly) {
-		//temp.insert(temp.begin(), vec2f(p.x, p.y)); // Want it in CCW order
-	//}
-	//return visibility_polygon(temp, pos);
-
-	return visibility_polygon(env, &pos);
-}
-
-void s2c::update_losses(visibility_polygon& phys_poly, visibility_polygon& virt_poly, simulation_state& sim_state, user* egocentric_user) {
-	vec2f phys_heading = rad_2_vec(egocentric_user->state.get_phys_heading());
-	vec2f virt_heading = rad_2_vec(egocentric_user->state.get_virt_heading());
-	phys_poly.compute_nearest_features(phys_heading);
-	virt_poly.compute_nearest_features(virt_heading);
-	cur_north_loss = phys_poly.distance_north - virt_poly.distance_north;
-	cur_east_loss = phys_poly.distance_east - virt_poly.distance_east;
-	cur_west_loss = phys_poly.distance_west - virt_poly.distance_west;
-	//cur_north_loss = math::abs(phys_poly.distance_north - virt_poly.distance_north);
-	//cur_east_loss = math::abs(phys_poly.distance_east - virt_poly.distance_east);
-	//cur_west_loss = math::abs(phys_poly.distance_west - virt_poly.distance_west);
 }
 
 redirection_unit s2c::set_gains(float dx, float dy, float dtheta, float phys_heading, vec2f phys_pos) {

@@ -5,9 +5,6 @@ class user;
 #include "redirector.h"
 #include "simulation_state.h"
 #include "user.hpp"
-#include "visibility.hpp"
-#include "visibility_polygon.h"
-#include "node.h"
 
 class s2c : public redirector {
 	public:
@@ -35,5 +32,4 @@ class s2c : public redirector {
 		float cur_east_loss;
 		float cur_west_loss;
 		float prev_rota_gain;
-		node* optimal_node = NULL;
 };

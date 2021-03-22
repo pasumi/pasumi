@@ -52,10 +52,10 @@ namespace config {
 	//physical_environment phys_env = physical_environment(phys_verts, phys_obstacles, center);
 	physical_environment phys_env1 = physical_environment(
 		// Boundary file
-		"C:/Users/Niall Williams/Dropbox/UMD/Research/RDW Steering/simulated-rdw/envs/phys/boundaries/small_square.txt",
+		"C:/Users/Niall Williams/Dropbox/UMD/Research/RDW Steering/simulated-rdw/envs/phys/boundaries/office_small.txt",
 
 		// Obstacle file
-		"C:/Users/Niall Williams/Dropbox/UMD/Research/RDW Steering/simulated-rdw/envs/phys/obstacles/ismar_test.txt",
+		"C:/Users/Niall Williams/Dropbox/UMD/Research/RDW Steering/simulated-rdw/envs/phys/obstacles/office_small.txt",
 
 		"phys env 1"
 	);
@@ -77,10 +77,10 @@ namespace config {
 	/////////////////////////////////////////////////////
 	virtual_environment virt_env = virtual_environment(
 		//Boundary file
-		"C:/Users/Niall Williams/Dropbox/UMD/Research/RDW Steering/simulated-rdw/envs/virt/boundaries/small_square.txt", 
+		"C:/Users/Niall Williams/Dropbox/UMD/Research/RDW Steering/simulated-rdw/envs/virt/boundaries/office_small_truncated.txt", 
 
 		// Obstacle file
-		"C:/Users/Niall Williams/Dropbox/UMD/Research/RDW Steering/simulated-rdw/envs/virt/obstacles/empty.txt",
+		"C:/Users/Niall Williams/Dropbox/UMD/Research/RDW Steering/simulated-rdw/envs/virt/obstacles/office_small_truncated.txt",
 
 		"virt env 1"
 	);
@@ -105,7 +105,7 @@ namespace config {
 	apf_grad APF_GRAD2 = apf_grad(reset_policy);
 	apf_vec APF_VEC1 = apf_vec(&phys_env1, reset_policy);
 	s2c S2C = s2c(reset_policy);
-	arc ARC_V2 = arc(&phys_env1, &virt_env, reset_policy);
+	arc ARC = arc(&phys_env1, &virt_env, reset_policy);
 	no_rdw NO_RDW1 = no_rdw(reset_policy);
 	bool APF_USE_TRANS = false;
 
@@ -130,7 +130,7 @@ namespace config {
 	float VELOCITY = 1.0f;
 	float ANGULAR_VELOCITY = 90.0f;
 	std::vector<user*> users = std::vector<user*>{
-		new user(1, vec2f(0.15f, 0.0f), vec2f(0.0f, 0.0f), math::pi / 2.0f, math::pi / 2.0f, NUM_PATHS, NUM_WAYPOINTS, motion_model::PATH_MODEL::FILE, motion_model::TRAJECTORY_MODEL::STRAIGHT, &ARC_V2, &phys_env1, &virt_env)
+		new user(1, vec2f(0.0f, 0.0f), vec2f(0.0f, 0.0f), math::pi / 2.0f, math::pi / 2.0f, NUM_PATHS, NUM_WAYPOINTS, motion_model::PATH_MODEL::RANDOM, motion_model::TRAJECTORY_MODEL::STRAIGHT, &ARC, &phys_env1, &virt_env)
 		//,
 
 		//new user(2, vec2f(0.0f, -3.5f), vec2f(0.0f, -3.5f), math::pi / 2.0f, math::pi / 2.0f, 2, 4, motion_model::PATH_MODEL::RANDOM, motion_model::TRAJECTORY_MODEL::STRAIGHT, &S2C, &phys_env2, &virt_env)
@@ -142,7 +142,6 @@ namespace config {
 	/////////////////////////////////////////////////////
 	////////////////////// SETTINGS /////////////////////
 	/////////////////////////////////////////////////////
-		/*
 	bool RANDOM_PHYS_START_POS = true;
 	bool RADIUS_PHYS_START_POS = false;
 	float RADIUS_PHYS_START_POS_THRESHOLD = 0.5f;
@@ -151,21 +150,11 @@ namespace config {
 	bool RANDOM_PHYS_HEADING = true;
 	bool RANDOM_VIRT_HEADING = true;
 	bool MATCH_PHYS_VIRT_HEADING = false;
-	*/
 
-	bool RANDOM_PHYS_START_POS = false;
-	bool RADIUS_PHYS_START_POS = false;
-	float RADIUS_PHYS_START_POS_THRESHOLD = 0.5f;
-	bool RANDOM_VIRT_START_POS = false;
-	bool MATCH_PHYS_VIRT_POS = false;
-	bool RANDOM_PHYS_HEADING = false;
-	bool RANDOM_VIRT_HEADING = false;
-	bool MATCH_PHYS_VIRT_HEADING = false;
-
-	bool GRAPHICS = true;
+	bool GRAPHICS = false;
 	bool DEBUG = false;
 	int TRIAL_TO_DEBUG = 26; // This doesn't even work properly lol
-	int SEED = 3226288;
+	int SEED = 32268;
 	bool SEEDED = true;
 	const char* DATA_DIR = "data";
 }

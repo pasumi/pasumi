@@ -7,8 +7,6 @@ class user;
 #include "simulation_state.h"
 #include "redirector.h"
 #include "user.hpp"
-#include "visibility.hpp"
-#include "visibility_polygon.h"
 //#include "physical_environment.hpp"
 
 class apf_grad : public redirector{

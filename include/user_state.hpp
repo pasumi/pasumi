@@ -37,7 +37,6 @@ class user_state{
         vec2f get_next_phys_pos(float seconds_into_future);
         vec2f get_next_virt_pos(float seconds_into_future);
         bool check_and_correct_collision(vec2f prev_phys_pos, vec2f cur_phys_pos, user* egocentric_user);
-        std::vector<float> get_alignment();
 
         NAVIGATION_STATE nav_state;
         std::vector<trajectory_unit> path;

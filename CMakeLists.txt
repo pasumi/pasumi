@@ -20,19 +20,19 @@ add_executable(pasumi
   include/arc.h
   include/config.h
   include/dynamic_obstacle.h
-  include/edge.h
-  include/edge_pq.h
+  
+  
   include/environment.h
   include/floats.hpp
   include/geometry.h
-  include/graph.h
+  
   include/history.h
-  include/linked_list.h
-  include/ll_node.h
+  
+  
   include/math.hpp
   include/modified_reset_to_center.h
   include/motion_model.h
-  include/node.h
+  
   include/no_rdw.h
   include/object.h
   include/obstacle.h
@@ -54,14 +54,14 @@ add_executable(pasumi
   include/simulation_state.h
   include/step_forward_reset_to_gradient.h
   include/timestep.h
-  include/trans_view.h
+  
   include/user.hpp
   include/user_state.hpp
   include/vec2f.hpp
   include/vector2.hpp
   include/virtual_environment.hpp
-  include/visibility.hpp
-  include/visibility_polygon.h
+  
+  
   include/wall.h
 
   # Source code files
@@ -71,17 +71,17 @@ add_executable(pasumi
   src/arc.cpp
   src/config.cpp
   src/dynamic_obstacle.cpp
-  src/edge.cpp
-  src/edge_pq.cpp
+  
+  
   src/environment.cpp
-  src/graph.cpp
+  
   src/history.cpp
-  src/linked_list.cpp
-  src/ll_node.cpp
+  
+  
   src/main.cpp
   src/modified_reset_to_center.cpp
   src/motion_model.cpp
-  src/node.cpp
+  
   src/no_rdw.cpp
   src/obstacle.cpp
   src/physical_environment.cpp
@@ -96,11 +96,11 @@ add_executable(pasumi
   src/simulation_state.cpp
   src/step_forward_reset_to_gradient.cpp
   src/timestep.cpp
-  src/trans_view.cpp
+  
   src/user.cpp
   src/user_state.cpp
   src/virtual_environment.cpp
-  src/visibility_polygon.cpp
+  
   src/wall.cpp
   
 )

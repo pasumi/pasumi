@@ -109,10 +109,6 @@ void user::init_state(environment* phys_env, environment* virt_env, vec2f phys_s
     this->state = user_state(final_phys_pos, final_virt_pos, final_phys_heading, final_virt_heading, num_paths, num_waypoints, path_model, trajectory_model, rdw);
 }
 
-std::vector<std::vector<vec2f>> user::get_gradient_data() {
-    return rdw->get_gradient_data(phys_env, proximity_queue);
-}
-
 int user::vertex_buffer_size() {
     return base_verts.size() * 3 * sizeof(float);
 }

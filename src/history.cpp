@@ -25,10 +25,6 @@ void history::log(user_state state) {
 	phys_heading_history.push_back(state.get_phys_heading());
 	virt_heading_history.push_back(state.get_virt_heading());
 	rdw_history.push_back(state.get_prev_redir());
-	std::vector<float> alignment_history = state.get_alignment();
-	north_alignment_history.push_back(alignment_history[0]);
-	east_alignment_history.push_back(alignment_history[1]);
-	west_alignment_history.push_back(alignment_history[2]);
 
 	if (nav_state_history.size() == 0) {
 		collision_history.push_back(0);
@@ -128,11 +124,7 @@ void history::write(user* user_to_write, int path_number) {
 			}
 
 			// collision
-			my_file << collision_history[i] << ",";
-
-			my_file << north_alignment_history[i] << ",";
-			my_file << east_alignment_history[i] << ",";
-			my_file << west_alignment_history[i];
+			my_file << collision_history[i];
 
 			my_file << "\n";
 		}

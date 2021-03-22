@@ -22,9 +22,6 @@ class history {
 		std::vector<float> phys_heading_history;
 		std::vector<float> virt_heading_history;
 		std::vector<redirection_unit> rdw_history;
-		std::vector<float> north_alignment_history;
-		std::vector<float> east_alignment_history;
-		std::vector<float> west_alignment_history;
 		std::vector<user_state::NAVIGATION_STATE> nav_state_history;
 		std::vector<bool> collision_history;
 		int num_collisions;

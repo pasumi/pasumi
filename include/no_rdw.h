@@ -7,8 +7,6 @@ class user;
 #include "simulation_state.h"
 #include "redirector.h"
 #include "user.hpp"
-#include "visibility.hpp"
-#include "visibility_polygon.h"
 
 class no_rdw : public redirector {
 	public:

@@ -25,8 +25,7 @@ apf_vec::apf_vec(physical_environment* phys_env, resetter* _resetter) {
 			process_wall(w, false);
 		}
 	}
-	//assert(dynamic_segments.size() == 0); // The original paper does not support dynamic objects.
-	cur_alignment = std::vector<float>{ 0.0f, 0.0f, 0.0f };
+	assert(dynamic_segments.size() == 0); // The original paper does not support dynamic objects.
 
 	reset_policy = _resetter;
 }

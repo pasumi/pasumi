@@ -12,7 +12,6 @@
 #include "apf_grad.h"
 #include "config.h"
 #include "arc.h"
-#include "node.h"
 //#include "vec2f.hpp"
 //#include "geometry.hpp"
 

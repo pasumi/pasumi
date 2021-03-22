@@ -399,7 +399,3 @@ trajectory_unit user_state::get_cur_move() {
 redirection_unit user_state::get_prev_redir() {
     return prev_redir;
 }
-
-std::vector<float> user_state::get_alignment() {
-    return rdw->cur_alignment;
-}

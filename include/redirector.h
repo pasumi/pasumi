@@ -45,7 +45,6 @@ class redirector {
 		virtual redirection_unit update(float dx, float dy, float dtheta, simulation_state& sim_state, user* user) = 0;
 		void reset(simulation_state& sim_state, user* user);
 		void reorient_to_target(vec2f phys_heading, float virt_heading, vec2f phys_pos, vec2f virt_pos, vec2f target, std::vector<trajectory_unit>* path);
-		virtual std::vector<std::vector<vec2f>> get_gradient_data(physical_environment* phys_env, std::deque<proximity_container*> prox_queue) = 0;
 
 		char* name;
 		int POST_RESET_GRACE_PERIOD; // Num frames to wait before calling reset again
@@ -75,8 +74,6 @@ class redirector {
 		float cur_bend_gain;
 		float min_bend_gain;
 		float max_bend_gain;
-
-		std::vector<float> cur_alignment;
 
 		resetter* reset_policy;
 
