@@ -11,13 +11,12 @@
 #include "math.hpp"
 #include "arc.h"
 #include "s2c.h"
-#include "arc_simple.h"
+#include "arc.h"
 #include "modified_reset_to_center.h"
 #include "reset_to_gradient.h"
 #include "step_forward_reset_to_gradient.h"
 #include "reset_to_forward_distance.h"
 #include "resetter.h"
-#include "more_rays.h"
 
 namespace config {
 	/////////////////////////////////////////////////////
@@ -54,7 +53,6 @@ namespace config {
 	//extern apf_grad APF_GRAD1;
 	extern bool APF_USE_TRANS;
 	extern arc ARC_V2;
-	extern more_rays MORE_RAYS;
 
 	/////////////////////////////////////////////////////
 	//////////////////// MOTION MODEL ///////////////////

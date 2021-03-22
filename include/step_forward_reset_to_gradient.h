@@ -1,5 +1,7 @@
 #pragma once
 
+#include <deque>
+
 #include "resetter.h"
 
 class step_forward_reset_to_gradient : public resetter {

@@ -56,7 +56,6 @@ physical_environment::physical_environment(std::vector<vec2f*> verts, std::vecto
 	}
 
 	this->center = center;
-	build_cgal_data();
 	//compute_features(name);
 }
 
@@ -172,8 +171,6 @@ physical_environment::physical_environment(std::string boundary_file, std::strin
 	}
 
 	this->center = vec2f(0.0f, 0.0f);
-	build_cgal_data();
-	//compute_features(name);
 }
 
 int physical_environment::vertex_buffer_size() {

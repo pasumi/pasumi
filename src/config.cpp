@@ -105,9 +105,7 @@ namespace config {
 	apf_grad APF_GRAD2 = apf_grad(reset_policy);
 	apf_vec APF_VEC1 = apf_vec(&phys_env1, reset_policy);
 	s2c S2C = s2c(reset_policy);
-	arc_simple ARC_V1 = arc_simple(&phys_env1, &virt_env, reset_policy);
 	arc ARC_V2 = arc(&phys_env1, &virt_env, reset_policy);
-	more_rays MORE_RAYS = more_rays(&phys_env1, &virt_env, reset_policy);
 	no_rdw NO_RDW1 = no_rdw(reset_policy);
 	bool APF_USE_TRANS = false;
 

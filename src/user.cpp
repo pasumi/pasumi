@@ -1,8 +1,8 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
+#include <chrono>
 
-// #include "pybind11/pybind11.h"
 #include "user.hpp"
 #include "timestep.h"
 #include "geometry.h"
@@ -121,33 +121,15 @@ int user::index_buffer_size() {
     return gl_indices.size() * sizeof(unsigned int);
 }
 
-#include <chrono>
 void user::step(simulation_state& sim_state){
     done = state.done;
     int t = timestep::num_timesteps;
 
     if (!finished_path) {
         //handle_collisions(sim_state);
-        auto start = chrono::steady_clock::now();
         state.step(sim_state, this);
-        auto end = chrono::steady_clock::now();
-        //std::cout << "step time: " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << std::endl;
-
-        //time_t start_time;
-        start = chrono::steady_clock::now();
         handle_collisions(sim_state);
-        //time_t end_time;
-        end = chrono::steady_clock::now();
-        //std::cout << "handle collision time: " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << std::endl;
-
-        //time_t start_time;
-        start = chrono::steady_clock::now();
-        //std::cout << "size of state variable: " << sizeof(state) << std::endl;
         user_history.log(state); 
-        //time_t end_time;
-        end = chrono::steady_clock::now();
-        //std::cout << "history log time: " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << std::endl;
-        //std::cout << "======"<< std::endl;
     }
     finished_path = state.path.size() == 0;
     if (this->paths_complete < state.paths_complete && finished_path) {

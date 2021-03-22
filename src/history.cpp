@@ -19,11 +19,6 @@ history::history() {
 }
 
 void history::log(user_state state) {
-	//std::cout << "=====Inside history logging===\n";
-	auto start = chrono::steady_clock::now();
-
-	//std::cout << "size of path: " << sizeof(state.path) << std::endl;
-
 	time.push_back(timestep::elapsed_time);
 	phys_pos_history.push_back(state.get_phys_pos());
 	virt_pos_history.push_back(state.get_virt_pos());
@@ -52,10 +47,6 @@ void history::log(user_state state) {
 
 	if (state.nav_state == user_state::NAVIGATION_STATE::RESETTING) 
 		time_in_reset += timestep::dt;
-
-	auto end = chrono::steady_clock::now();
-	//std::cout << "inside history log time: " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << std::endl;
-	//std::cout << "======" << std::endl;
 }
 
 void history::reset() {
