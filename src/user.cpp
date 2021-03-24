@@ -12,13 +12,13 @@ user::user() {
 
 }
 
-user::user(int id, vec2f phys_start_pos, vec2f virt_start_pos, float phys_heading, float virt_heading, int num_paths, int num_waypoints, motion_model::PATH_MODEL path_model, motion_model::TRAJECTORY_MODEL trajectory_model, redirector* rdw, environment* phys_env, environment* virt_env) {
+user::user(int id, vec2f phys_start_pos, vec2f virt_start_pos, float phys_heading, float virt_heading, int num_paths, int num_waypoints, motion_model::PATH_MODEL path_model, redirector* rdw, environment* phys_env, environment* virt_env) {
     type = obstacle::OBJECT_TYPE::USER;
     space = obstacle::SPACE_TYPE::PHYS;
 
     this->radius = config::USER_RADIUS;
 
-    init_state(phys_env, virt_env, phys_start_pos, virt_start_pos, phys_heading, virt_heading, num_paths, num_waypoints, path_model, trajectory_model, rdw);
+    init_state(phys_env, virt_env, phys_start_pos, virt_start_pos, phys_heading, virt_heading, num_paths, num_waypoints, path_model, rdw);
 
     this->proximity_queue = std::deque<proximity_container*>();
     this->add_phys_env((physical_environment*)phys_env);
@@ -40,7 +40,7 @@ user::user(int id, vec2f phys_start_pos, vec2f virt_start_pos, float phys_headin
     user_history.log(state);
 }
 
-void user::init_state(environment* phys_env, environment* virt_env, vec2f phys_start_pos, vec2f virt_start_pos, float phys_heading, float virt_heading, int num_paths, int num_waypoints, motion_model::PATH_MODEL path_model, motion_model::TRAJECTORY_MODEL trajectory_model, redirector* rdw) {
+void user::init_state(environment* phys_env, environment* virt_env, vec2f phys_start_pos, vec2f virt_start_pos, float phys_heading, float virt_heading, int num_paths, int num_waypoints, motion_model::PATH_MODEL path_model, redirector* rdw) {
     vec2f final_virt_pos;
     vec2f final_phys_pos;
     float final_virt_heading;
@@ -100,7 +100,7 @@ void user::init_state(environment* phys_env, environment* virt_env, vec2f phys_s
         }
     }
 
-    this->state = user_state(final_phys_pos, final_virt_pos, final_phys_heading, final_virt_heading, num_paths, num_waypoints, path_model, trajectory_model, rdw);
+    this->state = user_state(final_phys_pos, final_virt_pos, final_phys_heading, final_virt_heading, num_paths, num_waypoints, path_model, rdw);
 }
 
 void user::step(simulation_state& sim_state){

@@ -18,7 +18,7 @@ class user_state{
         enum class NAVIGATION_STATE { OK, RESETTING };
 
         user_state();
-        user_state(vec2f phys_pos, vec2f virt_pos, float phys_heading, float virt_heading, int num_paths, int num_waypoints, motion_model::PATH_MODEL path_model, motion_model::TRAJECTORY_MODEL trajectory_model, redirector* rdw);
+        user_state(vec2f phys_pos, vec2f virt_pos, float phys_heading, float virt_heading, int num_paths, int num_waypoints, motion_model::PATH_MODEL path_model, redirector* rdw);
         void step(simulation_state& sim_state, user* egocentric_user);
         float get_phys_heading();
         float get_virt_heading();

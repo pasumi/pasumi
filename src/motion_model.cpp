@@ -15,22 +15,16 @@ motion_model::motion_model() {
 
 }
 
-motion_model::motion_model(int waypoints, int paths, PATH_MODEL path_model, TRAJECTORY_MODEL trajectory_model) {
+motion_model::motion_model(int waypoints, int paths, PATH_MODEL path_model) {
 	this->waypoints = waypoints;
 	this->paths = paths;
 	this->path_model = path_model;
-	this->trajectory_model = trajectory_model;
 
 	PATH_MODEL_STRINGS = { "RANDOM", "STRAIGHT", "FILE" };
-	TRAJECTORY_MODEL_STRINGS = { "STRAIGHT", "ROTATE", "SMOOTH" };
 }
 
 char* motion_model::get_path_model_name() {
 	return PATH_MODEL_STRINGS[(int)path_model];
-}
-
-char* motion_model::get_trajectory_model_name() {
-	return TRAJECTORY_MODEL_STRINGS[(int)trajectory_model];
 }
 
 void motion_model::generate_path(std::vector<trajectory_unit>& user_path, virtual_environment* virt_env, vec2f cur_virt_pos, float cur_virt_heading) {

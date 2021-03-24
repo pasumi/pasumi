@@ -24,7 +24,7 @@ struct compare final {
 class user : public object {
     public:
         user();
-        user(int id, vec2f phys_start_pos, vec2f virt_start_pos, float phys_heading, float virt_heading, int num_paths, int num_waypoints, motion_model::PATH_MODEL path_model, motion_model::TRAJECTORY_MODEL trajectory_model, redirector* rdw, environment* phys_env, environment* virt_env);
+        user(int id, vec2f phys_start_pos, vec2f virt_start_pos, float phys_heading, float virt_heading, int num_paths, int num_waypoints, motion_model::PATH_MODEL path_model, redirector* rdw, environment* phys_env, environment* virt_env);
         void step(simulation_state& sim_state);
         void print_pos();
         void add_phys_env(physical_environment* phys_env);
@@ -41,7 +41,7 @@ class user : public object {
         void reset_state(environment* phys_env, environment* virt_env);
         void add_other_users(std::vector<user*> users);
         void trigger_reset_on_next_step();
-        void init_state(environment* phys_env, environment* virt_env, vec2f phys_start_pos, vec2f virt_start_pos, float phys_heading, float virt_heading, int num_paths, int num_waypoints, motion_model::PATH_MODEL path_model, motion_model::TRAJECTORY_MODEL trajectory_model, redirector* rdw);
+        void init_state(environment* phys_env, environment* virt_env, vec2f phys_start_pos, vec2f virt_start_pos, float phys_heading, float virt_heading, int num_paths, int num_waypoints, motion_model::PATH_MODEL path_model, redirector* rdw);
         void prep_for_next_path(simulation_state& sim_state);
         physical_environment* physical_env();
         virtual_environment* virtual_env();

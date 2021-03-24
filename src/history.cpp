@@ -149,7 +149,6 @@ void history::write(user* user_to_write, int path_number) {
 		my_file << "Min waypoint angle: " << config::MIN_WAYPOINT_ANGLE << "\n";
 		my_file << "Max waypoint angle: " << config::MAX_WAYPOINT_ANGLE << "\n";
 		my_file << "Path model: " << user_to_write->state.model.get_path_model_name() << "\n";
-		my_file << "Trajectory model: " << user_to_write->state.model.get_trajectory_model_name() << "\n";
 	}
 	my_file.close();
 }

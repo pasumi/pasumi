@@ -10,13 +10,13 @@ user_state::user_state(){
 
 }
 
-user_state::user_state(vec2f phys_pos, vec2f virt_pos, float phys_heading, float virt_heading, int num_paths, int num_waypoints, motion_model::PATH_MODEL path_model, motion_model::TRAJECTORY_MODEL trajectory_model, redirector* rdw) {
+user_state::user_state(vec2f phys_pos, vec2f virt_pos, float phys_heading, float virt_heading, int num_paths, int num_waypoints, motion_model::PATH_MODEL path_model, redirector* rdw) {
     this->phys_heading = phys_heading;
     this->virt_heading = virt_heading;
     velocity = config::VELOCITY;
     this->phys_pos = phys_pos;
     this->virt_pos = virt_pos;
-    this->model = motion_model(num_waypoints, num_paths, path_model, trajectory_model);
+    this->model = motion_model(num_waypoints, num_paths, path_model);
     this->rdw = rdw;
     this->nav_state = NAVIGATION_STATE::OK;
     this->done = false;

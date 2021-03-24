@@ -92,7 +92,7 @@ namespace config {
 	float VELOCITY = 1.0f;
 	float ANGULAR_VELOCITY = 90.0f;
 	std::vector<user*> users = std::vector<user*>{
-		new user(1, vec2f(0.0f, 0.0f), vec2f(0.0f, 0.0f), math::pi / 2.0f, math::pi / 2.0f, NUM_PATHS, NUM_WAYPOINTS, motion_model::PATH_MODEL::RANDOM, motion_model::TRAJECTORY_MODEL::STRAIGHT, &ARC, &phys_env1, &virt_env)
+		new user(1, vec2f(0.0f, 0.0f), vec2f(0.0f, 0.0f), math::pi / 2.0f, math::pi / 2.0f, NUM_PATHS, NUM_WAYPOINTS, motion_model::PATH_MODEL::RANDOM, &ARC, &phys_env1, &virt_env)
 	};
 
 	/////////////////////////////////////////////////////

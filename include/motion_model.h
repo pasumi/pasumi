@@ -43,14 +43,11 @@ class motion_model {
 	public:
 		enum class PATH_MODEL { RANDOM, STRAIGHT, FILE };
 		std::vector<char*> PATH_MODEL_STRINGS;
-		enum class TRAJECTORY_MODEL { STRAIGHT, ROTATE, SMOOTH };
-		std::vector<char*> TRAJECTORY_MODEL_STRINGS;
 
 		motion_model();
-		motion_model(int waypoints, int paths, PATH_MODEL path_model, TRAJECTORY_MODEL trajectory_model);
+		motion_model(int waypoints, int paths, PATH_MODEL path_model);
 		void generate_path(std::vector<trajectory_unit>& user_path, virtual_environment* virt_env, vec2f cur_virt_pos, float cur_virt_heading);
 		char* get_path_model_name();
-		char* get_trajectory_model_name();
 
 	private:
 		void generate_path_to_point(vec2f cur_pos, float& cur_heading, vec2f goal_point, float angle_per_dt, float meters_per_dt, std::vector<trajectory_unit>& user_path);
@@ -60,7 +57,6 @@ class motion_model {
 		path cur_path;
 		std::vector<path> all_paths;
 		PATH_MODEL path_model;
-		TRAJECTORY_MODEL trajectory_model;
 		int waypoints;
 		int paths;
 
