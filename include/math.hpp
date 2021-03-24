@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cmath>
+#include <limits>
 
 namespace math{
 	const float pi = 3.14159265358979323846;
