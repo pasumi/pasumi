@@ -1,6 +1,5 @@
 ﻿# CMakeList.txt : Top-level CMake project file, do global configuration
 # and include sub-projects here.
-#
 cmake_minimum_required (VERSION 3.8)
 
 project ("pasumi")
@@ -20,30 +19,22 @@ add_executable(pasumi
   include/environment.h
   include/geometry.h
   include/history.h
-  "include/math.hpp"
-  
+  include/math.hpp
   include/motion_model.h
-  
   include/object.h
   include/obstacle.h
-  "include/physical_environment.h"
-  
-  
-  "include/proximity_container.h"
+  include/physical_environment.h
+  include/proximity_container.h
   include/redirector.h
   include/resetter.h
   include/reset_to_forward_distance.h
-  
-  
-  "include/simulation.h"
+  include/simulation.h
   include/simulation_state.h
-  
   include/timestep.h
-  "include/user.h"
-  "include/user_state.h"
-  "include/vec2f.h"
-  
-  "include/virtual_environment.h"
+  include/user.h
+  include/user_state.h
+  include/vec2f.h
+  include/virtual_environment.h
   include/wall.h
 
   # Source code files
@@ -52,27 +43,22 @@ add_executable(pasumi
   src/dynamic_obstacle.cpp
   src/environment.cpp
   src/history.cpp
-  
   src/motion_model.cpp
-  
   src/obstacle.cpp
   src/physical_environment.cpp
-  
   src/proximity_container.cpp
   src/redirector.cpp
   src/resetter.cpp
   src/reset_to_forward_distance.cpp
-  
-  
   src/simulation.cpp
   src/simulation_state.cpp
-  
   src/timestep.cpp
   src/user.cpp
   src/user_state.cpp
   src/virtual_environment.cpp
   src/wall.cpp
- "src/main.cpp")
+  src/main.cpp
+ )
 
 
 # Include sub-projects.
