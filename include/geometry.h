@@ -91,10 +91,12 @@ namespace geom {
         float t1 = -1.0f;
         float t2 = -1.0f;
         if (line_line_intersect(s1_1, s1_2, circle_p1, circle_p2)) {
-            t1 = ray_line_intersect(circle_p1, &normalize(*circle_p2 - *circle_p1), s1_1, s1_2);
+            vec2f v = normalize(*circle_p2 - *circle_p1);
+            t1 = ray_line_intersect(circle_p1, &v, s1_1, s1_2);
         }
         if (line_line_intersect(s2_1, s2_2, circle_p1, circle_p2)) {
-            t2 = ray_line_intersect(circle_p1, &normalize(*circle_p2 - *circle_p1), s2_1, s2_2);
+            vec2f v = normalize(*circle_p2 - *circle_p1);
+            t2 = ray_line_intersect(circle_p1, &v, s2_1, s2_2);
         }
 
         if (t1 >= 0.0f && t2 >= 0.0f) return math::min(t1, t2);
