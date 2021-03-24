@@ -1,11 +1,17 @@
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <direct.h>
 #include <iostream>
 #include <ctime>
 #include <fstream>
 #include <time.h>
 #include <iomanip>
+
+#ifdef _WIN32
+#include <direct.h>
+#endif
+
+#ifdef linux
+#endif
 
 #include "environment.h"
 #include "geometry.h"
