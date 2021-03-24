@@ -36,7 +36,7 @@ obstacle::obstacle(std::vector<vec2f*> _verts, bool is_phys, bool is_static) {
 }
 
 obstacle::obstacle(char* _path, bool is_phys, bool is_static, float _radius) {
-	assert(!is_static, "Called dynamic obstacle constructor on a static object!");
+	assert(!is_static && "Called dynamic obstacle constructor on a static object!");
 
 	path_index = 0;
 	increment = 1;
