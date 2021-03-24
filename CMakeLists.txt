@@ -20,30 +20,30 @@ add_executable(pasumi
   include/environment.h
   include/geometry.h
   include/history.h
-  include/math.hpp
+  "include/math.hpp"
   
   include/motion_model.h
   
   include/object.h
   include/obstacle.h
-  include/physical_environment.hpp
-  include/polygon.h
-  include/primitives.hpp
-  include/proximity_container.hpp
+  "include/physical_environment.h"
+  
+  
+  "include/proximity_container.h"
   include/redirector.h
   include/resetter.h
   include/reset_to_forward_distance.h
   
   
-  include/simulation.hpp
+  "include/simulation.h"
   include/simulation_state.h
   
   include/timestep.h
-  include/user.hpp
-  include/user_state.hpp
-  include/vec2f.hpp
-  include/vector2.hpp
-  include/virtual_environment.hpp
+  "include/user.h"
+  "include/user_state.h"
+  "include/vec2f.h"
+  
+  "include/virtual_environment.h"
   include/wall.h
 
   # Source code files
@@ -57,7 +57,7 @@ add_executable(pasumi
   
   src/obstacle.cpp
   src/physical_environment.cpp
-  src/polygon.cpp
+  
   src/proximity_container.cpp
   src/redirector.cpp
   src/resetter.cpp

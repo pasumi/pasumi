@@ -1,7 +1,7 @@
 #pragma once
 
 #include "object.h"
-#include "vec2f.hpp"
+#include "vec2f.h"
 #include "environment.h"
 
 class dynamic_obstacle : public object {

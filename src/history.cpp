@@ -10,7 +10,7 @@
 
 #include "history.h"
 #include "timestep.h"
-#include "user.hpp"
+#include "user.h"
 #include "config.h"
 
 history::history() {

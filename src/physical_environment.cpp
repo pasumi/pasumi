@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 
-#include "physical_environment.hpp"
+#include "physical_environment.h"
 #include "geometry.h"
 #include "config.h"
 #include "dynamic_obstacle.h"

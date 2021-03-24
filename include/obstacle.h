@@ -5,7 +5,7 @@
 #include <fstream>
 #include <sstream>
 
-#include "vec2f.hpp"
+#include "vec2f.h"
 #include "wall.h"
 #include "object.h"
 

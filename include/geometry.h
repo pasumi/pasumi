@@ -5,7 +5,7 @@
 #include <random>
 
 #include "math.hpp"
-#include "vec2f.hpp"
+#include "vec2f.h"
 
 namespace geom {
     /**

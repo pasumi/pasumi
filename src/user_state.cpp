@@ -1,8 +1,7 @@
-//#include <cmath>
 #include <iostream>
 #include <cassert>
 
-#include "user_state.hpp"
+#include "user_state.h"
 #include "math.hpp"
 #include "timestep.h"
 #include "config.h"
@@ -40,26 +39,10 @@ user_state::user_state(vec2f phys_pos, vec2f virt_pos, float phys_heading, float
 
 void user_state::generate_motion(virtual_environment* virt_env) {
     model.generate_path(path, virt_env, virt_pos, virt_heading);
-    //model.generate_trajectory(path, virt_heading, virt_pos, angular_velocity, velocity);
 }
 
 void user_state::step(simulation_state& sim_state, user* egocentric_user) {
     if (done) return;
-    /*
-    // This doesn't work and i didnt have a strong need for it so it remains broken.
-    if (config::DEBUG && paths_complete < config::TRIAL_TO_DEBUG) { 
-        path.clear();
-        if (!path.size()) {
-            paths_complete++;
-            if (paths_complete == config::NUM_PATHS) done = true;
-            else {
-                generate_motion(sim_state.virt_env);
-                reset_state(sim_state.phys_env, sim_state.virt_env);
-            }
-        }
-        return;
-    }
-    */
 
     manage_post_reset_timer();
 
@@ -68,27 +51,19 @@ void user_state::step(simulation_state& sim_state, user* egocentric_user) {
     vec2f virt_pos_before_update = egocentric_user->state.get_virt_pos();
     float virt_heading_before_update = egocentric_user->state.get_virt_heading();
 
-    //prev_move = path[0];
     trajectory_unit cur_pos = path[0];
 
     float dx = cur_pos.x - prev_virt_pos.x;
     float dy = cur_pos.y - prev_virt_pos.y;
     float dpos = length(vec2f(prev_virt_pos.x, prev_virt_pos.y) - vec2f(cur_pos.x, cur_pos.y));
     float dtheta = signed_angle(rad_2_vec(prev_virt_pos.theta), rad_2_vec(cur_pos.theta));
-    int eroigjeroi = timestep::num_timesteps;
-    if (dpos != 0.0f || dtheta != 0.0f) {
-        //assert((dpos != 0.0f && dtheta == 0.0f) || (dpos == 0.0f && dtheta != 0.0f), "shit is fucked");
-    }
-    if (timestep::num_timesteps == 215) {
-        int it = 3;
-    }
     // Not resetting, so follow the path and apply redirection.
     if (nav_state != NAVIGATION_STATE::RESETTING) {
         redirection_unit redir = rdw->update(dx, dy, dtheta, sim_state, egocentric_user);
 
         // Update virtual state regardless of whatever redirection happens
         virt_heading = cur_pos.theta;
-        virt_heading = fmod(virt_heading, math::pi * 2);
+        virt_heading = fmod(virt_heading, math::two_pi);
         virt_pos = vec2f(cur_pos.x, cur_pos.y);
 
         // No redirection
@@ -102,19 +77,18 @@ void user_state::step(simulation_state& sim_state, user* egocentric_user) {
         // Redirection
         else {
             // Update heading
-            //if (redir.apply_rota) {
             if (dtheta) {
                 phys_heading += dtheta * redir.rota_gain;
                 phys_heading = fmod(phys_heading, math::pi * 2);
             }
-            //if (redir.apply_curve || redir.apply_trans) {
+            // Update position
             if (dpos) {
+                // Scale the magnitude of the position change
                 if (redir.apply_trans) {
-                    // Scale the magnitude of the position change
                     dpos *= redir.trans_gain;
                 }
+                // Turn the physical heading before walking forward
                 if (redir.apply_curve) {
-                    // Turn the physical heading before walking forward
                     phys_heading += timestep::dt * redir.curve_gain_dir * math::radians(redir.curve_gain);
                 }
                 // Walk forward (possibly scaled by translation gain, possibly 
@@ -125,7 +99,6 @@ void user_state::step(simulation_state& sim_state, user* egocentric_user) {
             }
             if (redir.apply_bend) {
                 // TODO: maybe one day.
-                //assert(prev_move.dtheta && (prev_move.dx || prev_move.dy));
             }
         }
 
@@ -146,10 +119,9 @@ void user_state::step(simulation_state& sim_state, user* egocentric_user) {
     }
 
     bool collision_happened = check_and_correct_collision(phys_pos_before_update, phys_pos, egocentric_user);
-    timestep::num_timesteps;
 
-    // Collision is going to happen. Trigger a reset instead of going through with the
-    // position update.
+    // Collision is going to happen. Trigger a reset instead of 
+    // going through with the position update.
     if (collision_happened || !egocentric_user->physical_env()->point_is_legal(egocentric_user->state.get_phys_pos())) {
         // Undo the position update that was just done above (when applying redirection)
         phys_pos = phys_pos_before_update;
@@ -191,6 +163,7 @@ bool user_state::check_and_correct_collision(vec2f prev_phys_pos, vec2f cur_phys
     }
     // User-user collision
     else {
+        // TODO: implement this
         return true;
         //trajectory_unit temp = ((user*)closest_obj->get_obstacle())->state.prev_phys_pos;
         //vec2f other_user_prev_phys_pos = vec2f(temp.x, temp.y);
@@ -290,74 +263,6 @@ void user_state::manage_post_reset_timer() {
             break;
     }
 }
-
-vec2f user_state::get_next_phys_pos(float seconds_into_future) {
-    trajectory_unit next_move = path[0];
-    float dpos = length(vec2f(prev_phys_pos.x, prev_phys_pos.y) - phys_pos);
-    float dtheta = prev_phys_pos.theta - phys_heading;
-
-    float scale_factor = seconds_into_future / timestep::dt;
-    float offset_pos = dpos * scale_factor;
-    float offset_theta = dtheta * scale_factor;
-
-    float predicted_heading = phys_heading + offset_theta;
-    vec2f predicted_pos = phys_pos + (rad_2_vec(predicted_heading) * offset_pos);
-
-    return predicted_pos;
-
-    vec2f dummy_phys_pos = phys_pos;
-    // todo: this
-    /*
-    vec2f dummy_phys_pos = phys_pos;
-    vec2f dummy_phys_pos = phys_pos;
-    float dummy_phys_heading = phys_heading;
-    int num_timesteps_into_future = (int)(seconds_into_future / timestep::dt);
-
-    if (path[0].dtheta) {
-        dummy_phys_heading += math::radians(angular_velocity) * timestep::dt * path[0].dtheta * prev_redir.rota_gain * num_timesteps_into_future;
-        dummy_phys_heading = fmod(dummy_phys_heading, math::pi * 2);
-    }
-    if (path[0].dx || path[0].dy) {
-        //assert(!prev_move.dtheta && (prev_move.dx || prev_move.dy)); // Curvature is only applied when the virtual path is a straight line
-
-        // Don't multiply by angular velocity since this phys rotation is independent of the virtual rotation (and angular velocity is the virtual angular vecloity, which we don't care about).
-        dummy_phys_heading += timestep::dt * prev_redir.curve_gain_dir * math::radians(prev_redir.curve_gain) * num_timesteps_into_future;
-    }
-    // Update position
-    if (path[0].dx || path[0].dy) {
-        //assert(prev_move.dx || prev_move.dy); // Translation is only applied when the user is walking
-
-        if (path[0].dx) {
-            dummy_phys_pos += vec2f(cos(dummy_phys_heading), 0.0f) * velocity * timestep::dt * path[0].dx * prev_redir.trans_gain * num_timesteps_into_future;
-        }
-        if (path[0].dy) {
-            dummy_phys_pos += vec2f(0.0f, sin(dummy_phys_heading)) * velocity * timestep::dt * path[0].dy * prev_redir.trans_gain * num_timesteps_into_future;
-        }
-    }
-    if (prev_redir.apply_bend) {
-        // TODO: this
-        assert(prev_move.dtheta && (prev_move.dx || prev_move.dy));
-    }
-    */
-
-    return dummy_phys_pos;
-}
-
-vec2f user_state::get_next_virt_pos(float seconds_into_future) {
-    trajectory_unit next_move = path[0];
-    float dpos = length(vec2f(prev_virt_pos.x, prev_virt_pos.y) - vec2f(next_move.x, next_move.y));
-    float dtheta = prev_virt_pos.theta - next_move.theta;
-
-    float scale_factor = seconds_into_future / timestep::dt;
-    float offset_pos = dpos * scale_factor;
-    float offset_theta = dtheta * scale_factor;
-
-    float predicted_heading = virt_heading + offset_theta;
-    vec2f predicted_pos = virt_pos + (rad_2_vec(predicted_heading) * offset_pos);
-
-    return predicted_pos;
-}
-
 vec2f user_state::get_phys_pos() {
     return phys_pos;
 }

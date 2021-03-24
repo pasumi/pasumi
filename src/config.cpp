@@ -31,25 +31,7 @@ namespace config {
 	/////////////////////////////////////////////////////
 	/////////////// PHYSICAL ENVIRONMENT ////////////////
 	/////////////////////////////////////////////////////
-	/*** VERTICES ***/
-	vec2f center = vec2f(0.0f, 0.0f);
-	std::vector<vec2f> phys_verts = std::vector<vec2f>{
-		/*vec2f(0.0f, 3.53553391f),
-		vec2f(3.53553391f, 0.0f),
-		vec2f(0.0f, -3.53553391f),
-		vec2f(-3.53553391f, 0.0f)*/
-
-		vec2f(5.0f, -5.0f),
-		vec2f(5.0f, 5.0f),
-		vec2f(-5.0f, 5.0f),
-		vec2f(-5.0f, -5.0f)
-	};
-
-	/*** OBSTACLES ***/
-	std::vector<obstacle*> phys_obstacles = std::vector<obstacle*>{
-	};
-
-	//physical_environment phys_env = physical_environment(phys_verts, phys_obstacles, center);
+	//vec2f center = vec2f(0.0f, 0.0f);
 	physical_environment phys_env1 = physical_environment(
 		// Boundary file
 		"C:/Users/Niall Williams/Dropbox/UMD/Research/RDW Steering/simulated-rdw/envs/phys/boundaries/office_small.txt",
@@ -59,14 +41,6 @@ namespace config {
 
 		"phys env 1"
 	);
-
-	//physical_environment phys_env2 = physical_environment(
-	//	// Boundary file
-	//	"C:/Users/Niall Williams/Dropbox/UMD/Research/RDW Steering/simulated-rdw/envs/phys/boundaries/office_small_truncated.txt",
-
-	//	// Obstacle file
-	//	"C:/Users/Niall Williams/Dropbox/UMD/Research/RDW Steering/simulated-rdw/envs/phys/obstacles/office_small_truncated.txt"
-	//);
 
 	std::vector<physical_environment*> phys_envs = std::vector<physical_environment*>{
 		&phys_env1
@@ -93,11 +67,8 @@ namespace config {
 	/////////////////////////////////////////////////////
 	///////////////////// REDIRECTOR ////////////////////
 	/////////////////////////////////////////////////////
-	//resetter* reset_policy = &SFR2G;
-	//resetter* reset_policy = &MR2C;
 	resetter* reset_policy = &R2FD;
 
-	int POST_RESET_GRACE_PERIOD = 5;
 	arc ARC = arc(&phys_env1, &virt_env, &R2FD);
 
 	/////////////////////////////////////////////////////

@@ -3,11 +3,11 @@
 #include <cassert>
 #include <limits>
 
-#include "proximity_container.hpp"
+#include "proximity_container.h"
 #include "math.hpp"
 #include "wall.h"
 #include "geometry.h"
-#include "user.hpp"
+#include "user.h"
 
 proximity_container::proximity_container() {
 
@@ -54,22 +54,6 @@ void proximity_container::update_distance() {
                     closest_feature.push_back(p1);
                     closest_feature.push_back(p2);
                 }
-
-                //if (/*intersect_cur_closest && !intersect_new_closest) {
-                //    continue;
-                //}
-                //if (!intersect_cur_closest && intersect_new_closest) {
-                //    closest_distance = dist;
-                //    closest_feature.clear();
-                //    closest_feature.push_back(p1);
-                //    closest_feature.push_back(p2);
-                //}
-                //if (!intersect_cur_closest && !intersect_new_closest) {
-                //    closest_distance = dist;
-                //    closest_feature.clear();
-                //    closest_feature.push_back(p1);
-                //    closest_feature.push_back(p2);
-                //}*/
             }
         }
 

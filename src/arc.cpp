@@ -3,10 +3,9 @@
 
 #include "arc.h"
 #include "math.hpp"
-#include "user.hpp"
+#include "user.h"
 #include "geometry.h"
 #include "config.h"
-#include "vector2.hpp"
 
 arc::arc(physical_environment* phys_env, virtual_environment* virt_env, resetter* _resetter) {
 	name = "Alignment-based Redirection Controller (ARC)";

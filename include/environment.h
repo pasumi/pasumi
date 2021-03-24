@@ -4,7 +4,7 @@
 
 class visibility_polygon;
 
-#include "vec2f.hpp"
+#include "vec2f.h"
 #include "obstacle.h"
 #include "geometry.h"
 #include "wall.h"

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <string>
-
 #include "obstacle.h"
 
 class proximity_container{

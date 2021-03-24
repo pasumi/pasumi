@@ -2,12 +2,14 @@
 
 #include <deque>
 
+// Forward declare
 class user_state;
+class simulation_state;
 
-#include "vec2f.hpp"
-#include "proximity_container.hpp"
-#include "physical_environment.hpp"
-#include "virtual_environment.hpp"
+#include "vec2f.h"
+#include "proximity_container.h"
+#include "physical_environment.h"
+#include "virtual_environment.h"
 #include "obstacle.h"
 #include "motion_model.h"
 #include "redirector.h"
@@ -18,8 +20,6 @@ struct compare final {
         return lhs.get_distance() > rhs.get_distance();
     }
 };
-
-class simulation_state;
 
 class user : public object {
     public:
@@ -33,19 +33,13 @@ class user : public object {
         vec2f get_phys_pos();
         vec2f get_virt_pos();
         std::vector<vec2f*> get_vertices();
-        float distance(vec2f p);
-        std::vector<vec2f> get_draw_vertices(float alpha);
         physical_environment* get_phys_env();
-        bool is_blocking_path(vec2f start, vec2f end, float radius);
         vec2f get_closest_wall(vec2f p);
         proximity_container* get_closest_obstacle(object::SPACE_TYPE space_to_search);
-        int vertex_buffer_size();
-        int index_buffer_size();
         void write(int paths_increment);
         char* get_redirector_name();
         void reset_state(environment* phys_env, environment* virt_env);
         void add_other_users(std::vector<user*> users);
-        void step_until_collision(float t);
         void trigger_reset_on_next_step();
         void init_state(environment* phys_env, environment* virt_env, vec2f phys_start_pos, vec2f virt_start_pos, float phys_heading, float virt_heading, int num_paths, int num_waypoints, motion_model::PATH_MODEL path_model, motion_model::TRAJECTORY_MODEL trajectory_model, redirector* rdw);
         void prep_for_next_path(simulation_state& sim_state);
@@ -53,10 +47,11 @@ class user : public object {
         virtual_environment* virtual_env();
         char* get_resetter_name();
         bool is_dynamic();
+        bool is_blocking_path(vec2f start, vec2f end, float radius);
+        float distance(vec2f p);
 
         int num_vertices;
         std::vector<vec2f> base_verts;
-        std::vector<unsigned int> gl_indices;
         int id;
         float radius;
         std::deque<proximity_container*> proximity_queue;

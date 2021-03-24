@@ -1,8 +1,8 @@
 #pragma once
 
-#include "user.hpp"
-#include "user_state.hpp"
-#include "vec2f.hpp"
+#include "user.h"
+#include "user_state.h"
+#include "vec2f.h"
 #include "redirector.h"
 #include "obstacle.h"
 #include "math.hpp"

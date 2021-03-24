@@ -2,11 +2,11 @@
 
 #include <vector>
 
-//#include "user.hpp"
+// Forward declare
 class user;
 
-#include "physical_environment.hpp"
-#include "virtual_environment.hpp"
+#include "physical_environment.h"
+#include "virtual_environment.h"
 
 class simulation_state {
 	public:

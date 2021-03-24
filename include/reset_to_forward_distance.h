@@ -2,7 +2,7 @@
 
 #include "resetter.h"
 #include "geometry.h"
-#include "user.hpp"
+#include "user.h"
 
 class reset_to_forward_distance : public resetter {
 	public:

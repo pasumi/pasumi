@@ -4,12 +4,12 @@
 
 class user;
 
-#include "vec2f.hpp"
+#include "vec2f.h"
 #include "motion_model.h"
 #include "timestep.h"
 #include "redirector.h"
-#include "physical_environment.hpp"
-#include "proximity_container.hpp"
+#include "physical_environment.h"
+#include "proximity_container.h"
 #include "simulation_state.h"
 #include "motion_model.h"
 
@@ -34,8 +34,6 @@ class user_state{
         void manage_post_reset_timer();
         void reset_state(environment* phys_env, environment* virt_env);
         void set_position_and_heading(environment* phys_env, environment* virt_env);
-        vec2f get_next_phys_pos(float seconds_into_future);
-        vec2f get_next_virt_pos(float seconds_into_future);
         bool check_and_correct_collision(vec2f prev_phys_pos, vec2f cur_phys_pos, user* egocentric_user);
 
         NAVIGATION_STATE nav_state;

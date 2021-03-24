@@ -3,7 +3,7 @@
 #include <time.h>
 #include <signal.h>
 
-#include "simulation.hpp"
+#include "simulation.h"
 #include "config.h"
 
 int EXIT_EARLY = 0;

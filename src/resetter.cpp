@@ -15,18 +15,6 @@ float resetter::reorient_to_target(vec2f phys_heading, float virt_heading, vec2f
     float angle_to_target = signed_angle(phys_heading, normalize(target - phys_pos));
     float complement_angle = (math::pi * 2) - math::abs(angle_to_target); // Complement of angle to target
     complement_angle *= -math::sign(angle_to_target);	// Flip the direction
-
-    /*
-    redirection_unit resetting_gains;
-    resetting_gains.apply_rota = true;
-    resetting_gains.rota_gain = math::abs(complement_angle) / (math::pi * 2); // Gain needed to have the 360 virtual turn result in a physical turn towards the target (phys env center).
-    resetting_gains.apply_trans = false;
-    resetting_gains.trans_gain = 1.0f;
-    resetting_gains.apply_curve = false;
-    resetting_gains.curve_gain = 0.0f;
-    resetting_gains.apply_bend = false;
-    resetting_gains.bend_gain = 0.0f;
-    */
     float rota_gain = math::abs(complement_angle) / (math::pi * 2); // Gain needed to have the 360 virtual turn result in a physical turn towards the target (phys env center).
 
     float cur_heading = virt_heading;

@@ -2,12 +2,13 @@
 
 #include <deque>
 
+// Forward declare
 class user;
 
 #include "math.hpp"
-#include "physical_environment.hpp"
-#include "proximity_container.hpp"
-#include "vec2f.hpp"
+#include "physical_environment.h"
+#include "proximity_container.h"
+#include "vec2f.h"
 #include "motion_model.h"
 #include "timestep.h"
 #include "simulation_state.h"
@@ -44,11 +45,9 @@ class redirector {
 		float curve_radius_to_deg_per_meter();
 		virtual redirection_unit update(float dx, float dy, float dtheta, simulation_state& sim_state, user* user) = 0;
 		void reset(simulation_state& sim_state, user* user);
-		void reorient_to_target(vec2f phys_heading, float virt_heading, vec2f phys_pos, vec2f virt_pos, vec2f target, std::vector<trajectory_unit>* path);
 
 		char* name;
-		int POST_RESET_GRACE_PERIOD; // Num frames to wait before calling reset again
-		int reset_timer;
+		int reset_timer; // Number of timesteps it will take to complete the reset
 		int post_reset_timer;
 		redirection_unit resetting_gains; // Gains to use during resetting
 

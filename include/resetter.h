@@ -3,12 +3,11 @@
 class user;
 
 #include "simulation_state.h"
-#include "vec2f.hpp"
+#include "vec2f.h"
 #include "math.hpp"
 #include "motion_model.h"
 #include "timestep.h"
-//#include "user.hpp"
-#include "proximity_container.hpp"
+#include "proximity_container.h"
 
 class resetter {
 	public:

@@ -1,7 +1,7 @@
 #include "reset_to_forward_distance.h"
 
 reset_to_forward_distance::reset_to_forward_distance() {
-	name = "reset to forward distance";
+	name = "Reset to forward distance";
 	for (int i = 0; i < SAMPLE_RATE; i++) {
 		sample_directions.push_back(((2 * math::pi) / SAMPLE_RATE) * i);
 	}
@@ -35,9 +35,7 @@ float reset_to_forward_distance::reset(simulation_state& sim_state, user* egocen
 	vec2f phys_pos = egocentric_user->state.get_phys_pos();
 	for (float d : sample_directions) {
 		vec2f dir = rad_2_vec(d);
-		float f = dot(dir, closest_wall_normal);
 		// Ensure we face away from the wall after resetting.
-		//if (dot(dir, closest_wall_normal) < 0.0f) continue;
 		if (dot(dir, closest_wall_normal) < math::epsilon) continue;
 
 		vec2f phys_heading = rad_2_vec(egocentric_user->state.get_phys_heading());

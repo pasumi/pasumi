@@ -2,8 +2,8 @@
 
 #include <vector>
 
-#include "vec2f.hpp"
-#include "virtual_environment.hpp"
+#include "vec2f.h"
+#include "virtual_environment.h"
 #include "timestep.h"
 
 struct trajectory_unit {

@@ -3,7 +3,7 @@
 #include <fstream>
 #include <sstream>
 
-#include "virtual_environment.hpp"
+#include "virtual_environment.h"
 #include "geometry.h"
 #include "config.h"
 

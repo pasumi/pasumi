@@ -2,11 +2,7 @@
 #include <fstream>
 #include <chrono>
 
-// #include "pybind11/pybind11.h"
-// #include <pybind11/pybind11.h>
-// #include <vector>
-// #include "user.hpp"
-#include "simulation.hpp"
+#include "simulation.h"
 #include "timestep.h"
 #include "config.h"
 
@@ -14,144 +10,15 @@ simulation::simulation() {
 
 }
 
-float simulation::get_environment_clutter(physical_environment* env) {
-	std::vector<float> clutter_vals;
-	float step_size = 0.5f;
-	float theta_step_size = math::radians(1);
-	float f = env->min_x + step_size;
-
-	for (float x = env->min_x + step_size; x < env->max_x; x += step_size) {
-		for (float y = env->min_y + step_size; y < env->max_y; y += step_size) {
-			vec2f p = vec2f(x, y);
-			if (!env->point_is_legal(p)) continue;
-			p = vec2f(math::normalize_in_range(x, env->min_x, env->max_x),
-					  math::normalize_in_range(y, env->min_y, env->max_y));
-			float clutter = 0.0f;
-
-			for (float theta = 0.0f; theta < math::two_pi; theta += theta_step_size) {
-				vec2f dir = rad_2_vec(theta);
-				float closest = math::max_float;
-
-				for (wall* w : env->get_walls()) {
-					vec2f* s1 = w->get_vertices()[0];
-					s1 = new vec2f(math::normalize_in_range(s1->x, env->min_x, env->max_x),
-							   math::normalize_in_range(s1->y, env->min_y, env->max_y));
-					vec2f* s2 = w->get_vertices()[1];
-					s2 = new vec2f(math::normalize_in_range(s2->x, env->min_x, env->max_x),
-							   math::normalize_in_range(s2->y, env->min_y, env->max_y));
-					float t = geom::ray_line_intersect(&p, &dir, s1, s2);
-					if (t >= 0.0f && t <= closest) {
-						closest = t;
-					}
-				}
-				for (obstacle* o : env->get_obstacles()) {
-					for (wall* w : o->get_walls()) {
-						vec2f* s1 = w->get_vertices()[0];
-						s1 = new vec2f(math::normalize_in_range(s1->x, env->min_x, env->max_x),
-							math::normalize_in_range(s1->y, env->min_y, env->max_y));
-						vec2f* s2 = w->get_vertices()[1];
-						s2 = new vec2f(math::normalize_in_range(s2->x, env->min_x, env->max_x),
-							math::normalize_in_range(s2->y, env->min_y, env->max_y));
-						float t = geom::ray_line_intersect(&p, &dir, s1, s2);
-						if (t >= 0.0f && t <= closest) {
-							closest = t;
-						}
-					}
-				}
-
-				clutter += closest;
-			}
-
-			clutter_vals.push_back(clutter / 360.0f);
-		}
-	}
-
-	float clutter_sum = 0.0f;
-	for (float c : clutter_vals) { clutter_sum += c; }
-	clutter_sum /= clutter_vals.size();
-	return clutter_sum;
-}
-
-float simulation::get_environment_clutter(virtual_environment* env) {
-	std::vector<float> clutter_vals;
-	float step_size = 0.5f;
-	float theta_step_size = math::radians(1);
-	float f = env->min_x + step_size;
-
-	for (float x = env->min_x + step_size; x < env->max_x; x += step_size) {
-		for (float y = env->min_y + step_size; y < env->max_y; y += step_size) {
-			vec2f p = vec2f(x, y);
-			if (!env->point_is_legal(p)) continue;
-			p = vec2f(math::normalize_in_range(x, env->min_x, env->max_x),
-				math::normalize_in_range(y, env->min_y, env->max_y));
-			float clutter = 0.0f;
-
-			for (float theta = 0.0f; theta < math::two_pi; theta += theta_step_size) {
-				vec2f dir = rad_2_vec(theta);
-				float closest = math::max_float;
-
-				for (wall* w : env->get_walls()) {
-					vec2f* s1 = w->get_vertices()[0];
-					s1 = new vec2f(math::normalize_in_range(s1->x, env->min_x, env->max_x),
-						math::normalize_in_range(s1->y, env->min_y, env->max_y));
-					vec2f* s2 = w->get_vertices()[1];
-					s2 = new vec2f(math::normalize_in_range(s2->x, env->min_x, env->max_x),
-						math::normalize_in_range(s2->y, env->min_y, env->max_y));
-					float t = geom::ray_line_intersect(&p, &dir, s1, s2);
-					if (t >= 0.0f && t <= closest) {
-						closest = t;
-					}
-				}
-				for (obstacle* o : env->get_obstacles()) {
-					for (wall* w : o->get_walls()) {
-						vec2f* s1 = w->get_vertices()[0];
-						s1 = new vec2f(math::normalize_in_range(s1->x, env->min_x, env->max_x),
-							math::normalize_in_range(s1->y, env->min_y, env->max_y));
-						vec2f* s2 = w->get_vertices()[1];
-						s2 = new vec2f(math::normalize_in_range(s2->x, env->min_x, env->max_x),
-							math::normalize_in_range(s2->y, env->min_y, env->max_y));
-						float t = geom::ray_line_intersect(&p, &dir, s1, s2);
-						if (t >= 0.0f && t <= closest) {
-							closest = t;
-						}
-					}
-				}
-
-				clutter += closest;
-			}
-
-			clutter_vals.push_back(clutter / 360.0f);
-		}
-	}
-
-	float clutter_sum = 0.0f;
-	for (float c : clutter_vals) { clutter_sum += c; }
-	clutter_sum /= clutter_vals.size();
-	return clutter_sum;
-}
-
-void simulation::compute_clutter(physical_environment* p_env, virtual_environment* v_env) {
-	float phys_clutter = get_environment_clutter(p_env);
-	std::cout << "Physical room clutter: " << phys_clutter << std::endl;
-	float virt_clutter = get_environment_clutter(v_env);
-	std::cout << "Virtual room clutter: " << virt_clutter << std::endl;
-
-	std::cout << "Physical/Virtual clutter ratio: " << phys_clutter / virt_clutter << std::endl;
-	system("pause");
-}
-
 simulation::simulation(std::vector<physical_environment*> physical_envs, virtual_environment* virtual_env, std::vector<user*> users){
     this->phys_envs = physical_envs;
     this->virt_env = virtual_env;
 
-	//compute_clutter();
 
     this->users = users;
     this->done = false;
 
     for (user* user : users) {
-		//user->add_phys_env(phys_env);
-        //user->add_virt_env(virt_env);
 		user->add_other_users(users);
         user->generate_motion(virt_env);
     }
@@ -161,12 +28,7 @@ simulation::simulation(std::vector<physical_environment*> physical_envs, virtual
 }
 
 void simulation::check_simulation_parameters() {
-	//assert(config::USER_RADIUS > 0.0f); // TODO: Allow this or not??? I think I can handle it numerically, but I don't know if it should be allowed.
-}
-
-void simulation::add_user(user* user_to_add) {
-	// TODO: remove? or refactor to make useful? It isn't used anymore since i pass in a vector of user objects.
-    users.push_back(user_to_add);
+	assert(config::USER_RADIUS > 0.0f);
 }
 
 void simulation::step() {
@@ -287,15 +149,3 @@ void simulation::quit_early() {
 		u->write(1);
 	}
 }
-
-
-// // Python interface
-// namespace py = pybind11;
-
-// PYBIND11_MODULE(simulation, m) {
-//     py::class_<Simulation>(m, "Simulation")
-//         .def(py::init<>())
-//         .def("add_user", &Simulation::add_user)
-//         .def("step", &Simulation::step)
-//         .def("print_status", &Simulation::print_status);
-// }

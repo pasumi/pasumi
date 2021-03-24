@@ -1,9 +1,8 @@
 #pragma once
 
 #include <vector>
-#include <string>
 
-#include "vec2f.hpp"
+#include "vec2f.h"
 #include "object.h"
 
 class wall : public object {
@@ -11,7 +10,6 @@ class wall : public object {
 		wall();
 		~wall();
 		wall(vec2f* p1, vec2f* p2, bool is_phys, bool is_static);
-		//wall(const wall& w);
 		std::vector<vec2f*> get_vertices();
 		float distance(vec2f p);
 		bool is_blocking_path(vec2f start, vec2f end, float radius);

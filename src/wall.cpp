@@ -11,7 +11,6 @@ wall::wall() {
 wall::wall(vec2f* p1, vec2f* p2, bool is_phys, bool is_static) {
 	this->p1 = new vec2f(p1->x, p1->y);
 	this->p2 = new vec2f(p2->x, p2->y);
-	//this->verts = std::vector<vec2f> { p1, p2 };
 	verts.push_back(this->p1);
 	verts.push_back(this->p2);
 	num_vertices = 2;
@@ -22,23 +21,10 @@ wall::wall(vec2f* p1, vec2f* p2, bool is_phys, bool is_static) {
 }
 
 wall::~wall() {
-	//delete p1;
-	//delete p2;
 	for (vec2f* v : verts) {
 		delete v;
 	}
 }
-
-//wall::wall(const wall& w) {
-//	this->p1 = w.p1;
-//	this->p2 = w.p2;
-//	this->verts = std::vector<vec2f>{ p1, p2 };
-//	num_vertices = 2;
-//
-//	type = w.type;
-//	space = w.space;
-//	mvmt = w.mvmt;
-//}
 
 int wall::vertex_buffer_size() {
 	return num_vertices * 3 * sizeof(float);

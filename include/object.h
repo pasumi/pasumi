@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "vec2f.hpp"
+#include "vec2f.h"
 
 class object {
 	public:
@@ -14,8 +14,6 @@ class object {
 		virtual float distance(vec2f p) = 0; // Distance from object to p
 		virtual bool is_blocking_path(vec2f start, vec2f end, float radius) = 0;
 		virtual vec2f get_closest_wall(vec2f p) = 0;
-		virtual int vertex_buffer_size() = 0;
-		virtual int index_buffer_size() = 0;
 		virtual bool is_dynamic() = 0;
 
 		int num_vertices;
