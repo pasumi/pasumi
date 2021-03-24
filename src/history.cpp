@@ -6,12 +6,15 @@
 #include <time.h>
 #include <iomanip>
 #include <chrono>
+#include <filesystem>
 
 #ifdef _WIN32
 #include <direct.h>
 #endif
-
 #ifdef linux
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #endif
 
 #include "history.h"
@@ -66,11 +69,22 @@ void history::reset() {
 void history::write(user* user_to_write, int path_number) {
 	std::cout.precision(10);
 
+	#ifdef _WIN32
 	struct stat info;
-	if (stat(config::DATA_DIR, &info) != 0)
+	if (stat(config::DATA_DIR, &info) != 0) {
 		printf("cannot access %s, so the directory was created.\n", config::DATA_DIR);
-	if (!(info.st_mode & S_IFDIR))  // S_ISDIR() doesn't exist on my windows 
+	}
+	if (!(info.st_mode & S_IFDIR)) {  // S_ISDIR() doesn't exist on my windows 
 		_mkdir(config::DATA_DIR);
+	}
+	#endif
+	#ifdef linux
+	struct stat st = { 0 };
+
+	if (stat(config::DATA_DIR, &st) == -1) {
+		mkdir(config::DATA_DIR, 0700);
+	}
+	#endif
 	
 	time_t t = std::time(0);
 	struct tm* now = localtime(&t);
@@ -78,11 +92,11 @@ void history::write(user* user_to_write, int path_number) {
 	char formatted_time[80];
 	char temp[50];
 	char filename[300];
-	strcpy(filename, config::DATA_DIR);
+	std::strcpy(filename, config::DATA_DIR);
 	sprintf(temp, "/user_%d_movement_history_path_#%d_", user_to_write->id, path_number);
-	strcat(filename, temp);
+	std::strcat(filename, temp);
 	strftime(formatted_time, 80, "%Y-%m-%d-%H-%M-%S.csv", now);
-	strcat(filename, formatted_time);
+	std::strcat(filename, formatted_time);
 
 	std::ofstream my_file;
 	my_file.open(filename);
@@ -139,9 +153,9 @@ void history::write(user* user_to_write, int path_number) {
 
 	char buffer[300];
 	temp[200];
-	strcpy(buffer, config::DATA_DIR);
+	std::strcpy(buffer, config::DATA_DIR);
 	sprintf(temp, "/user_%d_config.txt", user_to_write->id);
-	strcat(buffer, temp);
+	std::strcat(buffer, temp);
 	my_file.open(buffer);
 	if (my_file.is_open()) {
 		my_file << "Radius: " << user_to_write->radius << "\n";
