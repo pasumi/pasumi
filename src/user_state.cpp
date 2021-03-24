@@ -289,7 +289,6 @@ float user_state::get_angular_vel() {
 
 void user_state::reset(simulation_state& sim_state, user* egocentric_user) {
     nav_state = NAVIGATION_STATE::RESETTING;
-    std::cout << "resetting"<<std::endl;
     rdw->reset(sim_state, egocentric_user);
 }
 
