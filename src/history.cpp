@@ -81,7 +81,7 @@ void history::write(user* user_to_write, int path_number) {
 	std::ofstream my_file;
 	my_file.open(filename);
 	if (my_file.is_open()) {
-		my_file << "timestamp,phys_pos_x,phys_pos_y,virt_pos_x,virt_pos_y,phys_heading,virt_heading,apply_rota,rota_gain,apply_trans,trans_gain,apply_curve,curve_gain,curve_dir,nav_state,collision,north_alignment,east_alignment,west_alignment\n";
+		my_file << "timestamp,phys_pos_x,phys_pos_y,virt_pos_x,virt_pos_y,phys_heading,virt_heading,apply_rota,rota_gain,apply_trans,trans_gain,apply_curve,curve_gain,curve_dir,nav_state,collision\n";
 		for (int i = 0; i < time.size(); i++) {
 			redirection_unit redir = rdw_history[i];
 

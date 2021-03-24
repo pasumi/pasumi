@@ -88,9 +88,6 @@ namespace config {
 	/////////////////////////////////////////////////////
 	////////////////////// RESETTER /////////////////////
 	/////////////////////////////////////////////////////
-	modified_reset_to_center MR2C = modified_reset_to_center();
-	reset_to_gradient R2G = reset_to_gradient();
-	step_forward_reset_to_gradient SFR2G = step_forward_reset_to_gradient();
 	reset_to_forward_distance R2FD = reset_to_forward_distance();
 
 	/////////////////////////////////////////////////////
@@ -101,13 +98,7 @@ namespace config {
 	resetter* reset_policy = &R2FD;
 
 	int POST_RESET_GRACE_PERIOD = 5;
-	apf_grad APF_GRAD1 = apf_grad(reset_policy);
-	apf_grad APF_GRAD2 = apf_grad(reset_policy);
-	apf_vec APF_VEC1 = apf_vec(&phys_env1, reset_policy);
-	s2c S2C = s2c(reset_policy);
-	arc ARC = arc(&phys_env1, &virt_env, reset_policy);
-	no_rdw NO_RDW1 = no_rdw(reset_policy);
-	bool APF_USE_TRANS = false;
+	arc ARC = arc(&phys_env1, &virt_env, &R2FD);
 
 	/////////////////////////////////////////////////////
 	//////////////////// MOTION MODEL ///////////////////
@@ -131,13 +122,7 @@ namespace config {
 	float ANGULAR_VELOCITY = 90.0f;
 	std::vector<user*> users = std::vector<user*>{
 		new user(1, vec2f(0.0f, 0.0f), vec2f(0.0f, 0.0f), math::pi / 2.0f, math::pi / 2.0f, NUM_PATHS, NUM_WAYPOINTS, motion_model::PATH_MODEL::RANDOM, motion_model::TRAJECTORY_MODEL::STRAIGHT, &ARC, &phys_env1, &virt_env)
-		//,
-
-		//new user(2, vec2f(0.0f, -3.5f), vec2f(0.0f, -3.5f), math::pi / 2.0f, math::pi / 2.0f, 2, 4, motion_model::PATH_MODEL::RANDOM, motion_model::TRAJECTORY_MODEL::STRAIGHT, &S2C, &phys_env2, &virt_env)
 	};
-
-
-
 
 	/////////////////////////////////////////////////////
 	////////////////////// SETTINGS /////////////////////
@@ -154,7 +139,7 @@ namespace config {
 	bool GRAPHICS = false;
 	bool DEBUG = false;
 	int TRIAL_TO_DEBUG = 26; // This doesn't even work properly lol
-	int SEED = 32268;
+	int SEED = 3226288;
 	bool SEEDED = true;
 	const char* DATA_DIR = "data";
 }

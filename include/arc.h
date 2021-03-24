@@ -15,20 +15,12 @@ private:
 	float set_translation_gain(simulation_state& sim_state, user* egocentric_user);
 	float set_curvature_gain(int direction);
 
-	const float VIS_NODE_RESOLUTION = 1.0f;
-	const float PREDICTION_TIME_HORIZON = 1.0f;
-	const float REDIRECTION_DISTANCE_THRESHOLD = 0.25f;
-	const float MAX_NODE_DISTANCE = 4.0f;
 	const int SAMPLE_RATE = 20;
-	const float FORWARD_DISTANCE_WEIGHT = 5.0f;
 	const float REDIRECTION_LOSS_THRESHOLD = 0.1f;
 	const float ROTA_GAIN_SMOOTHING = 0.125f;
 
 	std::vector<float> cur_alignment;
 	float prev_loss;
-	float prev_north_loss;
-	float prev_east_loss;
-	float prev_west_loss;
 	float cur_loss;
 	float cur_north_loss;
 	float cur_east_loss;

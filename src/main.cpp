@@ -3,21 +3,9 @@
 #include <time.h>
 #include <signal.h>
 
-#include "virtual_environment.hpp"
-#include "physical_environment.hpp"
 #include "simulation.hpp"
-#include "user.hpp"
-#include "motion_model.h"
-#include "timestep.h"
-#include "apf_grad.h"
 #include "config.h"
-#include "arc.h"
-//#include "vec2f.hpp"
-//#include "geometry.hpp"
 
-// settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 800;
 int EXIT_EARLY = 0;
 
 void signal_callback_handler(int signum) {
@@ -25,7 +13,7 @@ void signal_callback_handler(int signum) {
 	EXIT_EARLY = 1;
 }
 
-int run_no_graphics() {
+void run_no_graphics() {
 	// Register signal and signal handler
 	signal(SIGINT, signal_callback_handler);
 
@@ -44,6 +32,7 @@ int run_no_graphics() {
 			break;
 		}
 	}
+
 	time_t end_time;
 	end_time = time(NULL);
 	sim.write(frame_count, start_time, end_time);
@@ -51,16 +40,10 @@ int run_no_graphics() {
 	std::cout << "Num frames: " << frame_count << std::endl;
 	std::cout << "Elapsed real time: " << end_time - start_time << std::endl;
 	std::cout << "FPS: " << frame_count / (end_time - start_time) << std::endl;
-
-	return 0;
 }
 
-void experiment() {
+int main() {
 	run_no_graphics();
-}
-
-int main(){
-	experiment();
 
 	return 0;
 }

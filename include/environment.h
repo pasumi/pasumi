@@ -13,7 +13,6 @@ class environment {
     public:
         environment();
         ~environment();
-
         std::vector<vec2f*> get_vertices();
         std::vector<wall*> get_walls();
         std::vector<obstacle*> get_obstacles();
@@ -33,9 +32,7 @@ class environment {
         float area;
 
     protected:
-
         std::vector<vec2f*> verts; // Vertices of boundary in counter clockwise order
         std::vector<wall*> walls;
         std::vector<obstacle*> obstacles;
-        int NUM_POINTS_TO_SAMPLE = 1000; // For environment statistics
 };

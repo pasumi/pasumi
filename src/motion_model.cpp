@@ -21,7 +21,7 @@ motion_model::motion_model(int waypoints, int paths, PATH_MODEL path_model, TRAJ
 	this->path_model = path_model;
 	this->trajectory_model = trajectory_model;
 
-	PATH_MODEL_STRINGS = { "RANDOM", "STRAIGHT", "AZMANDIAN", "TEST", "FILE" };
+	PATH_MODEL_STRINGS = { "RANDOM", "STRAIGHT", "FILE" };
 	TRAJECTORY_MODEL_STRINGS = { "STRAIGHT", "ROTATE", "SMOOTH" };
 }
 
@@ -68,40 +68,6 @@ void motion_model::generate_path(std::vector<trajectory_unit>& user_path, virtua
 		all_paths.push_back(next_path);
 	}
 	break;
-	case PATH_MODEL::AZMANDIAN:
-	{
-		config::MIN_WAYPOINT_DISTANCE = 2.0f;
-		config::MAX_WAYPOINT_DISTANCE = 6.0f;
-		config::MIN_WAYPOINT_ANGLE = -math::pi;
-		config::MAX_WAYPOINT_ANGLE = math::pi;
-		vec2f cur_pos = cur_virt_pos;
-		path next_path = path();
-		for (int j = 0; j < waypoints; j++) {
-			vec2f sampled_point = sample_point(virt_env, cur_pos);
-			//next_path.waypoints.push_back(sampled_point);
-			cur_pos = sampled_point;
-		}
-		cur_path = next_path;
-		all_paths.push_back(next_path);
-	}
-	break;
-	case PATH_MODEL::TEST:
-	{
-		path next_path = path();
-		trajectory_unit cur;
-		//for (int i = 0; i < 40; i++) {
-		float d = math::radians(1);
-		for (float i = math::pi; i > math::pi / 2.0f; i -= d){
-		//while (cur.x < 23.5619449f / 2.0f){
-			cur.x = cos(i);
-			cur.y = sin(i);
-			cur.theta = i - (math::pi / 2.0f);
-			next_path.waypoints.push_back(cur);
-			user_path.push_back(cur);
-		}
-		all_paths.push_back(next_path);
-	}
-	break;
 	case PATH_MODEL::FILE:
 	{
 		std::fstream newfile;
@@ -122,7 +88,6 @@ void motion_model::generate_path(std::vector<trajectory_unit>& user_path, virtua
 					else			next_point.y = std::stof(substr);
 					i++;
 				}
-				//new_path.waypoints.push_back(next_point);
 				pts.push_back(next_point);
 			}
 			newfile.close(); 
@@ -229,87 +194,4 @@ bool motion_model::check_path_for_collision(environment* env, vec2f p1, vec2f p2
 		}
 	}
 	return true;
-}
-
-void motion_model::generate_trajectory(std::vector<trajectory_unit>& trajectory, float cur_virt_heading, vec2f cur_virt_pos, float angular_vel, float velocity) {
-	switch (trajectory_model) {
-	case TRAJECTORY_MODEL::STRAIGHT:
-		generate_straight_trajectory(trajectory, cur_virt_heading, cur_virt_pos, angular_vel, velocity);
-		break;
-	case TRAJECTORY_MODEL::ROTATE:
-		break;
-	case TRAJECTORY_MODEL::SMOOTH:
-		generate_smooth_trajectory(trajectory, cur_virt_heading, cur_virt_pos, angular_vel, velocity);
-		break;
-	}
-}
-
-void motion_model::generate_straight_trajectory(std::vector<trajectory_unit>& trajectory, float cur_virt_heading, vec2f cur_virt_pos, float angular_vel, float velocity) {
-	/*
-	vec2f cur_heading = rad_2_vec(cur_virt_heading);
-	vec2f cur_pos = cur_virt_pos;
-
-	for (int i = 0; i < cur_path.waypoints.size(); i++) {
-		// Rotate to next waypoint
-		float amount_to_rotate = signed_angle(cur_heading, normalize(cur_path.waypoints[i] - cur_pos));
-		int num_turn_units = math::abs((math::degrees(amount_to_rotate) / angular_vel) / timestep::dt);
-		for (int j = 0; j < num_turn_units; j++) {
-			trajectory.push_back(trajectory_unit(0, 0, 1 * math::sign(amount_to_rotate)));
-		}
-		float remainder = (math::degrees(math::abs(amount_to_rotate)) - (num_turn_units * angular_vel * timestep::dt)) / (angular_vel * timestep::dt);
-		if (remainder) trajectory.push_back(trajectory_unit(0, 0, math::abs(remainder) * math::sign(amount_to_rotate)));
-
-		// Walk in a straight line to waypoint
-		float amount_to_walk = length(cur_pos - cur_path.waypoints[i]);
-		int num_walk_units = (amount_to_walk / velocity) / timestep::dt;
-		for (int j = 0; j < num_walk_units; j++) {
-			trajectory.push_back(trajectory_unit(1, 1, 0));
-		}
-		remainder = (math::abs(amount_to_walk) - (num_walk_units * velocity * timestep::dt)) / (velocity * timestep::dt);
-		if (remainder) trajectory.push_back(trajectory_unit(remainder, remainder, 0));
-
-		cur_heading = normalize(cur_path.waypoints[i] - cur_pos);
-		cur_pos = cur_path.waypoints[i];
-	}
-	*/
-}
-
-void motion_model::generate_smooth_trajectory(std::vector<trajectory_unit>& trajectory, float cur_virt_heading, vec2f cur_virt_pos, float angular_vel, float velocity) {
-	/*
-	vec2f cur_heading = rad_2_vec(cur_virt_heading);
-	vec2f cur_pos = cur_virt_pos;
-
-	for (int i = 0; i < cur_path.waypoints.size(); i++) {
-		// Rotate to next waypoint
-		float amount_to_rotate = signed_angle(cur_heading, normalize(cur_path.waypoints[i] - cur_pos));
-		int num_turn_units = math::abs((math::degrees(amount_to_rotate) / angular_vel) / timestep::dt);
-		float amount_to_walk = length(cur_pos - cur_path.waypoints[i]);
-		int num_walk_units = (amount_to_walk / velocity) / timestep::dt;
-
-		int turn_counter = num_turn_units;
-		int walk_counter = num_walk_units;
-		while (turn_counter > 0 || walk_counter > 0) {
-			if (turn_counter) {
-				trajectory.push_back(trajectory_unit(0, 0, 1 * math::sign(amount_to_rotate)));
-				turn_counter--;
-			}
-			else {
-				float remainder = fmod(math::degrees(amount_to_rotate) / angular_vel, timestep::dt);
-				if (remainder) trajectory.push_back(trajectory_unit(0, 0, math::abs(remainder) * math::sign(amount_to_rotate)));
-			}
-
-			if (walk_counter) {
-				trajectory.push_back(trajectory_unit(1, 1, 0));
-				walk_counter--;
-			}
-			else {
-				float remainder = fmod(amount_to_walk / velocity, timestep::dt);
-				if (remainder) trajectory.push_back(trajectory_unit(0, 0, remainder));
-			}
-		}
-
-		cur_heading = normalize(cur_path.waypoints[i] - cur_pos);
-		cur_pos = cur_path.waypoints[i];
-	}
-	*/
 }

@@ -4,17 +4,9 @@
 #include "user_state.hpp"
 #include "vec2f.hpp"
 #include "redirector.h"
-#include "apf_grad.h"
-#include "apf_vec.h"
-#include "no_rdw.h"
 #include "obstacle.h"
 #include "math.hpp"
 #include "arc.h"
-#include "s2c.h"
-#include "arc.h"
-#include "modified_reset_to_center.h"
-#include "reset_to_gradient.h"
-#include "step_forward_reset_to_gradient.h"
 #include "reset_to_forward_distance.h"
 #include "resetter.h"
 
@@ -41,18 +33,12 @@ namespace config {
 	/////////////////////////////////////////////////////
 	////////////////////// RESETTER /////////////////////
 	/////////////////////////////////////////////////////
-	extern modified_reset_to_center MR2C;
-	extern reset_to_gradient R2G;
-	extern step_forward_reset_to_gradient SFR2G;
 	extern reset_to_forward_distance R2FD;
 
 	/////////////////////////////////////////////////////
 	///////////////////// REDIRECTOR ////////////////////
 	/////////////////////////////////////////////////////
 	extern int POST_RESET_GRACE_PERIOD;
-	//extern apf_grad APF_GRAD1;
-	extern bool APF_USE_TRANS;
-	extern arc ARC_V2;
 
 	/////////////////////////////////////////////////////
 	//////////////////// MOTION MODEL ///////////////////

@@ -38,13 +38,6 @@ dynamic_obstacle::dynamic_obstacle(char* _path, bool is_phys) {
 		}
 		newfile.close();
 	}
-
-	gl_indices.push_back(0);
-	gl_indices.push_back(1);
-	gl_indices.push_back(2);
-	gl_indices.push_back(0);
-	gl_indices.push_back(2);
-	gl_indices.push_back(3);
 }
 
 dynamic_obstacle::~dynamic_obstacle() {
@@ -72,6 +65,9 @@ std::vector<vec2f*> dynamic_obstacle::get_vertices() {
 	return temp;
 }
 
+/**
+ * Distance from object to p.
+ */
 float dynamic_obstacle::distance(vec2f p) {
 	return length(p - (*pos));
 }
@@ -108,14 +104,6 @@ vec2f dynamic_obstacle::get_closest_wall(vec2f p) {
 	}
 
 	return normalize(best_wall);
-}
-
-int dynamic_obstacle::vertex_buffer_size() {
-	return 4;
-}
-
-int dynamic_obstacle::index_buffer_size() {
-	return gl_indices.size() * sizeof(unsigned int);
 }
 
 bool dynamic_obstacle::is_dynamic() {

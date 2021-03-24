@@ -14,75 +14,47 @@ include_directories(
 # code file to Pasumi, be sure to include it in this list.
 add_executable(pasumi
   # Header files
-  include/apf_grad.h
-  include/apf_vec.h
-  include/arc.h
   include/arc.h
   include/config.h
   include/dynamic_obstacle.h
-  
-  
   include/environment.h
-  include/floats.hpp
   include/geometry.h
-  
   include/history.h
-  
-  
   include/math.hpp
-  include/modified_reset_to_center.h
+  
   include/motion_model.h
   
-  include/no_rdw.h
   include/object.h
   include/obstacle.h
   include/physical_environment.hpp
   include/polygon.h
-  include/polygon_match.h
   include/primitives.hpp
-  include/print_utils.h
   include/proximity_container.hpp
   include/redirector.h
   include/resetter.h
   include/reset_to_forward_distance.h
-  include/reset_to_gradient.h
-  include/s2c.h
-  include/shader.h
-  include/shader_m.h
-  include/shader_s.h
+  
+  
   include/simulation.hpp
   include/simulation_state.h
-  include/step_forward_reset_to_gradient.h
-  include/timestep.h
   
+  include/timestep.h
   include/user.hpp
   include/user_state.hpp
   include/vec2f.hpp
   include/vector2.hpp
   include/virtual_environment.hpp
-  
-  
   include/wall.h
 
   # Source code files
-  src/apf_grad.cpp
-  src/apf_vec.cpp
-  src/arc.cpp
   src/arc.cpp
   src/config.cpp
   src/dynamic_obstacle.cpp
-  
-  
   src/environment.cpp
-  
   src/history.cpp
   
-  
-  src/main.cpp
-  src/modified_reset_to_center.cpp
   src/motion_model.cpp
   
-  src/no_rdw.cpp
   src/obstacle.cpp
   src/physical_environment.cpp
   src/polygon.cpp
@@ -90,20 +62,17 @@ add_executable(pasumi
   src/redirector.cpp
   src/resetter.cpp
   src/reset_to_forward_distance.cpp
-  src/reset_to_gradient.cpp
-  src/s2c.cpp
+  
+  
   src/simulation.cpp
   src/simulation_state.cpp
-  src/step_forward_reset_to_gradient.cpp
-  src/timestep.cpp
   
+  src/timestep.cpp
   src/user.cpp
   src/user_state.cpp
   src/virtual_environment.cpp
-  
   src/wall.cpp
-  
-)
+ "src/main.cpp")
 
 
 # Include sub-projects.

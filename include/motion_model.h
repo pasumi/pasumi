@@ -41,7 +41,7 @@ struct path {
 
 class motion_model {
 	public:
-		enum class PATH_MODEL { RANDOM, STRAIGHT, AZMANDIAN, TEST, FILE };
+		enum class PATH_MODEL { RANDOM, STRAIGHT, FILE };
 		std::vector<char*> PATH_MODEL_STRINGS;
 		enum class TRAJECTORY_MODEL { STRAIGHT, ROTATE, SMOOTH };
 		std::vector<char*> TRAJECTORY_MODEL_STRINGS;
@@ -49,9 +49,6 @@ class motion_model {
 		motion_model();
 		motion_model(int waypoints, int paths, PATH_MODEL path_model, TRAJECTORY_MODEL trajectory_model);
 		void generate_path(std::vector<trajectory_unit>& user_path, virtual_environment* virt_env, vec2f cur_virt_pos, float cur_virt_heading);
-		void generate_trajectory(std::vector<trajectory_unit>& trajectory, float cur_virt_heading, vec2f cur_virt_pos, float angular_vel, float velocity);
-		void generate_straight_trajectory(std::vector<trajectory_unit>& trajectory, float cur_virt_heading, vec2f cur_virt_pos, float angular_vel, float velocity);
-		void generate_smooth_trajectory(std::vector<trajectory_unit>& trajectory, float cur_virt_heading, vec2f cur_virt_pos, float angular_vel, float velocity);
 		char* get_path_model_name();
 		char* get_trajectory_model_name();
 

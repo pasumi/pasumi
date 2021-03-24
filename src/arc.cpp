@@ -1,5 +1,4 @@
 #include <iostream>
-
 #include <fstream>
 
 #include "arc.h"
@@ -10,7 +9,7 @@
 #include "vector2.hpp"
 
 arc::arc(physical_environment* phys_env, virtual_environment* virt_env, resetter* _resetter) {
-	name = "Simple Alignment RDW";
+	name = "Alignment-based Redirection Controller (ARC)";
 
 	cur_rota_gain = 1.0f;
 	min_rota_gain = 0.67f;
@@ -54,7 +53,6 @@ void arc::update_losses(simulation_state& sim_state, user* egocentric_user) {
 		vec2f(phys_heading.y, -phys_heading.x), // Right (east)
 		vec2f(-phys_heading.y, phys_heading.x)  // Left (west)
 	};
-
 	environment* phys_env = (environment*)egocentric_user->physical_env();
 	vec2f phys_pos = egocentric_user->state.get_phys_pos();
 	float phys_distance_north = phys_env->get_distance_in_direction_from_point(phys_pos, directions[0]);
