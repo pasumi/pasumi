@@ -92,11 +92,11 @@ void history::write(user* user_to_write, int path_number) {
 	char formatted_time[80];
 	char temp[50];
 	char filename[300];
-	std::strcpy(filename, config::DATA_DIR);
+	strcpy(filename, config::DATA_DIR);
 	sprintf(temp, "/user_%d_movement_history_path_#%d_", user_to_write->id, path_number);
-	std::strcat(filename, temp);
+	strcat(filename, temp);
 	strftime(formatted_time, 80, "%Y-%m-%d-%H-%M-%S.csv", now);
-	std::strcat(filename, formatted_time);
+	strcat(filename, formatted_time);
 
 	std::ofstream my_file;
 	my_file.open(filename);
@@ -153,9 +153,9 @@ void history::write(user* user_to_write, int path_number) {
 
 	char buffer[300];
 	temp[200];
-	std::strcpy(buffer, config::DATA_DIR);
+	strcpy(buffer, config::DATA_DIR);
 	sprintf(temp, "/user_%d_config.txt", user_to_write->id);
-	std::strcat(buffer, temp);
+	strcat(buffer, temp);
 	my_file.open(buffer);
 	if (my_file.is_open()) {
 		my_file << "Radius: " << user_to_write->radius << "\n";
