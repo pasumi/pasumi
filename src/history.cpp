@@ -1,12 +1,18 @@
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <direct.h>
 #include <iostream>
 #include <ctime>
 #include <fstream>
 #include <time.h>
 #include <iomanip>
 #include <chrono>
+
+#ifdef _WIN32
+#include <direct.h>
+#endif
+
+#ifdef linux
+#endif
 
 #include "history.h"
 #include "timestep.h"
