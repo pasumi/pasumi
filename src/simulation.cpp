@@ -1,6 +1,16 @@
 #include <iostream>
 #include <fstream>
 #include <chrono>
+#include <string.h>
+
+//#ifdef _WIN32
+//#include <direct.h>
+//#endif
+//#ifdef linux
+//#include <sys/types.h>
+//#include <sys/stat.h>
+//#include <unistd.h>
+//#endif
 
 #include "simulation.h"
 #include "timestep.h"
