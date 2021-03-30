@@ -23,4 +23,5 @@ A simulator for developing and testing redirected walking controllers.
     mkdir build
     cd build
     cmake ..
-    cmake --build .```
+    cmake --build .
+    ```
