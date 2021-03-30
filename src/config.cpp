@@ -34,10 +34,10 @@ namespace config {
 	//vec2f center = vec2f(0.0f, 0.0f);
 	physical_environment phys_env1 = physical_environment(
 		// Boundary file
-		"C:/Users/Niall Williams/Dropbox/UMD/Research/RDW Steering/simulated-rdw/envs/phys/boundaries/office_small.txt",
+		"<path to pasumi>/envs/phys/boundaries/office_small.txt",
 
 		// Obstacle file
-		"C:/Users/Niall Williams/Dropbox/UMD/Research/RDW Steering/simulated-rdw/envs/phys/obstacles/office_small.txt",
+		"<path to pasumi>/envs/phys/obstacles/office_small.txt",
 
 		"phys env 1"
 	);
@@ -51,10 +51,10 @@ namespace config {
 	/////////////////////////////////////////////////////
 	virtual_environment virt_env = virtual_environment(
 		//Boundary file
-		"C:/Users/Niall Williams/Dropbox/UMD/Research/RDW Steering/simulated-rdw/envs/virt/boundaries/office_small_truncated.txt", 
+		"<path to pasumi>/envs/virt/boundaries/office_small_truncated.txt",
 
 		// Obstacle file
-		"C:/Users/Niall Williams/Dropbox/UMD/Research/RDW Steering/simulated-rdw/envs/virt/obstacles/office_small_truncated.txt",
+		"<path to pasumi>/envs/virt/obstacles/office_small_truncated.txt",
 
 		"virt env 1"
 	);
@@ -78,7 +78,7 @@ namespace config {
 	float MAX_WAYPOINT_DISTANCE = 6.0f;
 	float MIN_WAYPOINT_ANGLE = -math::pi; 
 	float MAX_WAYPOINT_ANGLE = math::pi; 
-	std::string path_file = "C:/Users/Niall Williams/Dropbox/UMD/Research/RDW Steering/simulated-rdw/path.txt";
+	std::string path_file = "<path to pasumi>/path.txt";
 
 	/////////////////////////////////////////////////////
 	/////////////////////// USERS ///////////////////////
