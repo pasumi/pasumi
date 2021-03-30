@@ -18,8 +18,8 @@ A simulator for developing and testing redirected walking controllers.
 
     - In terminal, navigate to the top level of the cloned pasumi library.
 
-    - Build ```pasumi``` by running the following command from the terminal: ```cmake .```
-
-    - Compile the library using the following command: ```make```
-
-    - Run the compiled code using the command: ```./pasumi```
+    - Run the following commands in the terminal:
+    ```mkdir build
+    cd build
+    cmake ..
+    cmake --build .```
