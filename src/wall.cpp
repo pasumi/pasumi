@@ -26,14 +26,6 @@ wall::~wall() {
 	}
 }
 
-int wall::vertex_buffer_size() {
-	return num_vertices * 3 * sizeof(float);
-}
-
-int wall::index_buffer_size() {
-	return num_vertices * sizeof(int);
-}
-
 std::vector<vec2f*> wall::get_vertices() {
 	return verts;
 }
