@@ -18,19 +18,6 @@ redirector::redirector(resetter* _resetter) {
 	cur_curve_per_deg = 0.0f;
 }
 
-/**
- * In "Rethinking Redirected Walking: On the Use of Curvature Gains Beyond
- * Perceptual Limitations and Revisiting Bending Gains" by Rietzler et al., it is
- * argued that curvature should be reported in degrees rotated per meter (deg/m).
- * Most people have reported curvature as the radius of the circle required to allow
- * people to walk an infinite straight line given their perceptual thresholds.
- * This method converts between the two notations.
- *
- * First calculate the circumference of the circle that would be required given the
- * circle radius as reported in various research. 
- * Then, divide 360 by this circumference to get the amount of degrees turned 
- * for each meter along the circumference.
- */
 float redirector::curve_radius_to_deg_per_meter() {
 	return 360.0f / (2.0f * math::pi * curve_radius);
 }

@@ -35,12 +35,6 @@ private:
 	/**
 	 * Set the redirection gains according to the user's current position
 	 * in the physical and virtual environments.
-	 * @param dx The amount the user has moved in the x-direction (lateral) since the last frame. Positive value is rightward, negative is leftward.
-	 * @param dy The amount the user has moved in the y-direction (forward) since the last frame. Positive value is forward, negative is backwards.
-	 * @param dtheta The amount the user has turned since the last frame. Positive value is turning to the left, negative is to the right.
-	 * @param sim_state The state of the simulation on the current frame.
-	 * @param egocentric_user The user whom we are computing redirection gains for.
-	 * @return The gains to apply on the current frame.
 	 */
 	redirection_unit set_gains(float dx, float dy, float dtheta, simulation_state& sim_state, user* egocentric_user);
 

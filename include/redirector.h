@@ -40,10 +40,53 @@ struct redirection_unit {
 
 class redirector {
 	public:
+		/**
+		 * Redirection controller defaul constructor. Don't use this!
+		 */
 		redirector();
+
+		/**
+		 * Constructor that requires a resetter policy. Also don't use this!
+		 */
 		redirector(resetter* _resetter);
+
+		/**
+		 * In "Rethinking Redirected Walking: On the Use of Curvature Gains Beyond
+		 * Perceptual Limitations and Revisiting Bending Gains" by Rietzler et al., 
+		 * it is argued that curvature should be reported in degrees rotated per 
+		 * meter (deg/m). Most people have reported curvature as the radius of the 
+		 * circle required to allow people to walk an infinite straight line given 
+		 * their perceptual thresholds. This method converts between the two
+		 * notations.
+		 *
+		 * First calculate the circumference of the circle that would be required
+		 * given the circle radius as reported in various research. Then, divide 360 
+		 * by this circumference to get the amount of degrees turned for each meter 
+		 * along the circumference.
+		 */
 		float curve_radius_to_deg_per_meter();
+
+		/**
+		 * Set the redirection gains according to the user's current position
+		 * in the physical and virtual environments.
+		 * @param dx The amount the user has moved in the x-direction (lateral) since 
+					 the last frame. Positive value is rightward, negative is leftward.
+		 * @param dy The amount the user has moved in the y-direction (forward) since 
+					 the last frame. Positive value is forward, negative is backwards.
+		 * @param dtheta The amount the user has turned since the last frame. 
+						 Positive value is turning to the left, negative is to the right.
+		 * @param sim_state The state of the simulation on the current frame.
+		 * @param egocentric_user The user whom we are computing redirection gains for.
+		 * @return The gains to apply on the current frame.
+		 */
 		virtual redirection_unit update(float dx, float dy, float dtheta, simulation_state& sim_state, user* user) = 0;
+		
+		/**
+		 * Reset (reorient) the user. This is usually called when the user gets too
+		 * close to an obstacle in the physical environment.
+		 * @param sim_state The state of the simulation on the current frame.
+		 * @param egocentric_user The user whom we are computing redirection gains for.
+		 */
 		void reset(simulation_state& sim_state, user* user);
 
 		char* name;
