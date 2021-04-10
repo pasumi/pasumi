@@ -25,3 +25,15 @@ A simulator for developing and testing redirected walking controllers.
     cmake ..
     cmake --build .
     ```
+    
+## Quick-start Guide
+
+- Download and compile the library (see above).
+
+- Create a new class that inherits from the `redirector` class. This will be your redirection controller.
+
+- Implement the constructor and `update()` methods of your newly-created class. See `arc.cpp` for an example.
+
+- Edit `config.h` to set the simulation parameters as you wish.
+
+- Compile and run!

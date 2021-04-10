@@ -6,8 +6,19 @@
 
 class dynamic_obstacle : public object {
 	public:
+		/**
+		 * Default constructor for dynamic obstacles
+		 */
 		dynamic_obstacle();
+
+		/**
+		 * Constructor for dynamic obstacles
+		 */
 		dynamic_obstacle(char* _path, bool is_phys);
+
+		/**
+		 * xxx
+		 */
 		~dynamic_obstacle();
 		void update();
 		std::vector<vec2f*> get_vertices();

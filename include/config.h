@@ -22,7 +22,6 @@ namespace config {
 	extern std::vector<obstacle*> obstacles;
 
 	extern physical_environment phys_env1;
-	extern physical_environment phys_env2;
 	extern std::vector<physical_environment*> phys_envs;
 
 	/////////////////////////////////////////////////////
@@ -43,10 +42,11 @@ namespace config {
 	/////////////////////////////////////////////////////
 	//////////////////// MOTION MODEL ///////////////////
 	/////////////////////////////////////////////////////
+	// These waypoint distance parameters are used in the Azmandian path model.
 	extern float MIN_WAYPOINT_DISTANCE; // Minimum distance between two waypoints 
 	extern float MAX_WAYPOINT_DISTANCE; // Maximum distance between two waypoints
-	extern float MIN_WAYPOINT_ANGLE; // Minimum angle between two waypoints
-	extern float MAX_WAYPOINT_ANGLE; // Maximum angle between two waypoints
+	extern float MIN_WAYPOINT_ANGLE;	// Minimum angle between two waypoints
+	extern float MAX_WAYPOINT_ANGLE;	// Maximum angle between two waypoints
 	extern std::string path_file;
 
 	/////////////////////////////////////////////////////

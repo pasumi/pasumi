@@ -93,7 +93,7 @@ inline vec2f rad_2_vec(const float& rad) {
 }
 
 /**
- * Convert an angle to a unit vector.
+ * Convert a unit vector to an angle.
  */
 inline float vec_2_rad(const vec2f& v) {
     float angle = math::atan2(v.y, v.x);
