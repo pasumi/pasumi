@@ -77,12 +77,12 @@ bool environment::line_is_legal(vec2f* p1, vec2f* p2) {
 	return true;
 }
 
-float environment::get_closest_obstacle_distance(vec2f pt) {
+float environment::get_closest_obstacle_distance(vec2f p) {
 	float closest = math::max_float;
 	for (wall* w : walls) {
 		vec2f* wall_p1 = w->get_vertices()[0];
 		vec2f* wall_p2 = w->get_vertices()[1];
-		float d = geom::line_point_distance(wall_p1, wall_p2, &pt);
+		float d = geom::line_point_distance(wall_p1, wall_p2, &p);
 		if (d < closest) closest = d;
 	}
 
@@ -90,7 +90,7 @@ float environment::get_closest_obstacle_distance(vec2f pt) {
 		for (wall* w : o->get_walls()) {
 			vec2f* wall_p1 = w->get_vertices()[0];
 			vec2f* wall_p2 = w->get_vertices()[1];
-			float d = geom::line_point_distance(wall_p1, wall_p2, &pt);
+			float d = geom::line_point_distance(wall_p1, wall_p2, &p);
 			if (d < closest) closest = d;
 		}
 	}

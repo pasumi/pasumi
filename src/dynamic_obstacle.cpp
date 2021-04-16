@@ -65,9 +65,6 @@ std::vector<vec2f*> dynamic_obstacle::get_vertices() {
 	return temp;
 }
 
-/**
- * Distance from object to p.
- */
 float dynamic_obstacle::distance(vec2f p) {
 	return length(p - (*pos));
 }
