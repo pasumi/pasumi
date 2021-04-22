@@ -10,9 +10,27 @@ class user;
 
 class history {
 	public:
+		/**
+		 * Default constructor for the history logger class.
+		 */
 		history();
+
+		/**
+		 * Record all the simulation data on the current timestep.
+		 * @param state The state of the user.
+		 */
 		void log(user_state state);
+
+		/**
+		 * Write the logged data to files.
+		 * @param user_to_write The user whose data is being written to file.
+		 * @param path_number The number of the path which is being written.
+		 */
 		void write(user* user_to_write, int path_number);
+
+		/**
+		 * Clear all the logged history data.
+		 */
 		void reset();
 
 	private:
