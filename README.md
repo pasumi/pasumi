@@ -10,7 +10,7 @@ A simulator for developing and testing redirected walking controllers.
 
     - Open CMake and navigate to the location where you cloned the pasumi library.
 
-    - Click _Configure_ and then _Generate_. This will create a file called ```nori.sln```, which you can double-click to open the project in Visual Studio.
+    - Click _Configure_ and then _Generate_. This will create a file called ```pasumi.sln```, which you can double-click to open the project in Visual Studio.
 
     - Press _Build -> Build Solution_ to compile the library, after which you can run experiments or use the code as you please.
 
