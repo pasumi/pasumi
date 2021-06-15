@@ -1,13 +1,13 @@
-/*
- An implementation of the ARC redirection controller. This algorithm was
- first presented in the paper "ARC: Alignment-based Redirection Controller for Redirected Walking in Complex Environments" by Niall L. Williams et al.
- For more information, see https://gamma.umd.edu/arc/.
-*/
-
 #pragma once
 
 #include "redirector.h"
 
+/**
+ * An implementation of the ARC redirection controller. This algorithm was
+ * first presented in the paper "ARC: Alignment-based Redirection Controller for
+ * Redirected Walking in Complex Environments" by Niall L. Williams et al.
+ * For more information, see https://gamma.umd.edu/arc/.
+ */
 class arc : public redirector {
 public:
 	/**

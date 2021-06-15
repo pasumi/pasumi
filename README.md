@@ -25,7 +25,7 @@ A simulator for developing and testing redirected walking controllers.
     cmake ..
     cmake --build .
     ```
-    
+
 ## Quick-start Guide
 
 - Download and compile the library (see above).

@@ -46,7 +46,7 @@ class redirector {
 		redirector();
 
 		/**
-		 * Constructor that requires a resetter policy. Also don't use this!
+		 * Constructor that requires a resetter policy. Also, don't use this!
 		 */
 		redirector(resetter* _resetter);
 

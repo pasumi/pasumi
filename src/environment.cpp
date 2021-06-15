@@ -16,6 +16,8 @@
 #include "environment.h"
 #include "geometry.h"
 #include "config.h"
+#include "ext/pugixml/pugixml.hpp"
+#include "ext/ghc/filesystem.hpp"
 
 environment::environment() {
 

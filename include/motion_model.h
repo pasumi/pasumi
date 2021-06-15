@@ -6,19 +6,35 @@
 #include "virtual_environment.h"
 #include "timestep.h"
 
+/**
+ * Struct that holds data describing the user's configuration (position and
+ * orientation) in an environment.
+ */
 struct trajectory_unit {
+	/**
+	 * Default constructor.
+	 */
 	trajectory_unit() {
 		x = 0.0f;
 		y = 0.0f;
 		theta = 0.0f;
 	}
 
+	/**
+	 * Constructor that requires an (x, y) position and orientation.
+	 * @param cur_x The x position of the user for this trajectory unit.
+	 * @param cur_y The y position of the user for this trajectory unit.
+	 * @param cur_theta The user's heading direction for this trajectory unit.
+	 */
 	trajectory_unit(float cur_x, float cur_y, float cur_theta) {
 		x = cur_x;
 		y = cur_y;
 		theta = cur_theta;
 	}
 
+	/**
+	 * Overload multiplication operator.
+	 */
 	struct trajectory_unit& operator*(const float& rhs) {
 		x *= rhs;
 		y *= rhs;
@@ -31,14 +47,19 @@ struct trajectory_unit {
 	float theta;
 };
 
+/**
+ * Struct that holds data describing the user's path/trajectory 
+ * in an environment.
+ */
 struct path {
-	//path() {};
-
-	//std::vector<vec2f> waypoints;
 	std::vector<trajectory_unit> waypoints;
 };
 
-
+/**
+ * A class that handles generating paths for a user in an environment.
+ * That is, this class contains the code that models the user's movement.
+ * You need to use this class if you want to make a user walk through an environment.
+ */
 class motion_model {
 	public:
 		enum class PATH_MODEL { RANDOM, STRAIGHT, FILE };
