@@ -1,0 +1,67 @@
+<env type="virtual" name="Office (Virt)">
+  <!-- Border -->
+  <border name="border">
+    <vertices>
+      <vertex>-11.0,-6.0</vertex>
+      <vertex>6.0,-6.0</vertex>
+      <vertex>6.0,6.0</vertex>
+      <vertex>-11.0,6.0</vertex>
+    </vertices>
+    <vertex type="center">0.0,0.0</vertex>
+  </border>
+
+  <!-- Obstacles -->
+  <obstacle type="static" name="o1">
+    <vertices>
+      <vertex>-4.0,-4.0</vertex>
+      <vertex>-1.0,-4.0</vertex>
+      <vertex>-1.0,-1.0</vertex>
+      <vertex>-4.0,-1.0</vertex>
+    </vertices>
+  </obstacle>
+
+  <obstacle type="static" name="o2">
+    <vertices>
+      <vertex>1.0,-4.0</vertex>
+      <vertex>4.0,-4.0</vertex>
+      <vertex>4.0,-1.0</vertex>
+      <vertex>1.0,-1.0</vertex>
+    </vertices>
+  </obstacle>
+
+  <obstacle type="static" name="o3">
+    <vertices>
+      <vertex>1.0,1.0</vertex>
+      <vertex>4.0,1.0</vertex>
+      <vertex>4.0,4.0</vertex>
+      <vertex>1.0,4.0</vertex>
+    </vertices>
+  </obstacle>
+
+  <obstacle type="static" name="o4">
+    <vertices>
+      <vertex>-4.0,1.0</vertex>
+      <vertex>-1.0,1.0</vertex>
+      <vertex>-1.0,4.0</vertex>
+      <vertex>-4.0,4.0</vertex>
+    </vertices>
+  </obstacle>
+
+  <obstacle type="static" name="o5">
+    <vertices>
+      <vertex>-9.0,1.0</vertex>
+      <vertex>-6.0,1.0</vertex>
+      <vertex>-6.0,4.0</vertex>
+      <vertex>-9.0,4.0</vertex>
+    </vertices>
+  </obstacle>
+
+  <obstacle type="static" name="o6">
+    <vertices>
+      <vertex>-9.0,-4.0</vertex>
+      <vertex>-6.0,-4.0</vertex>
+      <vertex>-6.0,-1.0</vertex>
+      <vertex>-9.0,-1.0</vertex>
+    </vertices>
+  </obstacle>
+</env>

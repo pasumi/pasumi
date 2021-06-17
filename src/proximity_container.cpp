@@ -33,7 +33,7 @@ void proximity_container::update_distance() {
     }
     // User-obstacle distance computation.
     else {
-        float closest_distance = std::numeric_limits<float>::max();
+        float closest_distance = math::max_float;
         vec2f best_p1, best_p2;
 
         // Get distance from user to every line segment (wall) that comprises o2, record closest distance

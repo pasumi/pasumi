@@ -1,7 +1,10 @@
 #include <limits>
 #include <chrono>
+#include <iostream>
 
 #include "config.h"
+#include "ext/ghc/fs_std.hpp"
+#include "ext/pugixml/pugixml.hpp"
 
 int check_settings() {
 	if (config::SEEDED) {
@@ -27,19 +30,13 @@ int check_settings() {
 
 namespace config {
 	int _ = check_settings();
+	fs::path BASE_PATH = fs::current_path().parent_path().parent_path().parent_path();
 
 	/////////////////////////////////////////////////////
 	/////////////// PHYSICAL ENVIRONMENT ////////////////
 	/////////////////////////////////////////////////////
-	//vec2f center = vec2f(0.0f, 0.0f);
 	physical_environment phys_env1 = physical_environment(
-		// Boundary file
-		"<path to pasumi>/envs/phys/boundaries/office_small.txt",
-
-		// Obstacle file
-		"<path to pasumi>/envs/phys/obstacles/office_small.txt",
-
-		"phys env 1"
+		BASE_PATH / fs::path("envs/phys/office.xml")
 	);
 
 	std::vector<physical_environment*> phys_envs = std::vector<physical_environment*>{
@@ -50,13 +47,7 @@ namespace config {
 	//////////////// VIRTUAL ENVIRONMENT ////////////////
 	/////////////////////////////////////////////////////
 	virtual_environment virt_env = virtual_environment(
-		//Boundary file
-		"<path to pasumi>/envs/virt/boundaries/office_small_truncated.txt",
-
-		// Obstacle file
-		"<path to pasumi>/envs/virt/obstacles/office_small_truncated.txt",
-
-		"virt env 1"
+		BASE_PATH / fs::path("/envs/virt/office.xml")
 	);
 
 	/////////////////////////////////////////////////////

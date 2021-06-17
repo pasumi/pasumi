@@ -18,16 +18,16 @@ virtual_environment::virtual_environment(std::vector<vec2f*> verts, char* name) 
 	unbounded = verts.size() == 0;
 
 	if (unbounded) {
-		min_x = std::numeric_limits<float>::min();
-		max_x = std::numeric_limits<float>::max();
-		min_y = std::numeric_limits<float>::min();
-		max_y = std::numeric_limits<float>::max();
+		min_x = math::min_float;
+		max_x = math::max_float;
+		min_y = math::min_float;
+		max_y = math::max_float;
 	}
 	else {
-		min_x = std::numeric_limits<float>::max();
-		max_x = std::numeric_limits<float>::min();
-		min_y = std::numeric_limits<float>::max();
-		max_y = std::numeric_limits<float>::min();
+		min_x = math::max_float;
+		max_x = math::min_float;
+		min_y = math::max_float;
+		max_y = math::min_float;
 		for (int i = 0; i < verts.size(); i++) {
 			vec2f* p1 = verts[i % verts.size()];
 			vec2f* p2 = verts[(i + 1) % verts.size()];
@@ -41,7 +41,10 @@ virtual_environment::virtual_environment(std::vector<vec2f*> verts, char* name) 
 	}
 }
 
-virtual_environment::virtual_environment(std::string boundary_file, std::string obstacles_file, char* name) {
+virtual_environment::virtual_environment(fs::path env_file) {
+	this->load_xml_file(env_file);
+
+	/*
 	this->name = name;
 	// Read file to create environment boundary
 	std::fstream newfile;
@@ -64,10 +67,10 @@ virtual_environment::virtual_environment(std::string boundary_file, std::string 
 		}
 		newfile.close();
 	}
-	min_x = std::numeric_limits<float>::max();
-	max_x = std::numeric_limits<float>::min();
-	min_y = std::numeric_limits<float>::max();
-	max_y = std::numeric_limits<float>::min();
+	min_x = math::max_float;
+	max_x = math::min_float;
+	min_y = math::max_float;
+	max_y = math::min_float;
 	for (int i = 0; i < verts.size(); i++) {
 		vec2f* p1 = verts[i % verts.size()];
 		vec2f* p2 = verts[(i + 1) % verts.size()];
@@ -126,6 +129,7 @@ virtual_environment::virtual_environment(std::string boundary_file, std::string 
 		delete v;
 	}
 	this->obstacles = obs;
+	*/
 }
 
 vec2f virtual_environment::sample_point() {

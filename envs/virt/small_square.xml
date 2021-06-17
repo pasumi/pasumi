@@ -1,0 +1,12 @@
+<env type="virtual" name="Small Square (Virt)">
+  <!-- Border -->
+  <border name="border">
+    <vertices>
+      <vertex>5.0,5.0</vertex>
+      <vertex>-5.0,5.0</vertex>
+      <vertex>-5.0,-5.0</vertex>
+      <vertex>5.0,-5.0</vertex>
+    </vertices>
+    <vertex type="center">0.0,0.0</vertex>
+  </border>
+</env>

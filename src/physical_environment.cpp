@@ -37,7 +37,10 @@ physical_environment::physical_environment(std::vector<vec2f*> verts, std::vecto
 	this->center = center;
 }
 
-physical_environment::physical_environment(std::string boundary_file, std::string obstacles_file, char* name) {
+physical_environment::physical_environment(fs::path env_file) {
+	this->load_xml_file(env_file);
+
+	/*
 	this->name = name;
 	// Read file to create environment boundary
 	std::fstream newfile;
@@ -125,6 +128,7 @@ physical_environment::physical_environment(std::string boundary_file, std::strin
 	}
 
 	this->center = vec2f(0.0f, 0.0f);
+	*/
 }
 
 vec2f physical_environment::get_center() {

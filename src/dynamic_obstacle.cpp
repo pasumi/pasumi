@@ -90,7 +90,7 @@ vec2f dynamic_obstacle::get_closest_wall(vec2f p) {
 	bb.push_back((*pos) - (radius * vec2f(1.0f, 0.0f)) - 
 							(radius * vec2f(0.0f, 1.0f)));
 
-	float best_dist = std::numeric_limits<float>::max();
+	float best_dist = math::max_float;
 	vec2f best_wall;
 	for (int i = 0; i < bb.size(); i++) {
 		float dist = geom::line_point_distance(new vec2f(bb[i]), new vec2f(bb[(i + 1) % bb.size()]), new vec2f(p));

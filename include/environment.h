@@ -8,6 +8,9 @@ class visibility_polygon;
 #include "obstacle.h"
 #include "geometry.h"
 #include "wall.h"
+#include "math.hpp"
+#include "ext/ghc/fs_std.hpp"
+#include "ext/pugixml/pugixml.hpp"
 
 class environment {
     public:
@@ -20,6 +23,23 @@ class environment {
          * Destructor for the environment.
          */
         ~environment();
+
+        /**
+         * Load the environment data from an XML file.
+         * @param filepath The path to the XML file to be loaded.
+         */
+        void environment::load_xml_file(fs::path filepath);
+
+        void environment::parse_border(pugi::xml_node border_node);
+
+        /**
+         * Parse the vertex data from a <vertex> element in an XML environment
+         * description file.
+         * @param vert_string The text inside the <vertex> element.
+         */
+        vec2f environment::parse_vertex(char* vert_string);
+
+        obstacle* environment::parse_obstacle(pugi::xml_node obs_node, bool is_phys);
 
         /**
          * Get a list of vertices that define the boundary of the environment.
@@ -104,4 +124,5 @@ class environment {
         std::vector<vec2f*> verts; // Vertices of boundary in counter clockwise order
         std::vector<wall*> walls;
         std::vector<obstacle*> obstacles;
+        vec2f center;
 };

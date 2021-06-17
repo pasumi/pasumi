@@ -1,0 +1,40 @@
+<env type="physical" name="Grand demo (Phys)">
+  <!-- Border -->
+  <border name="border">
+    <vertices>
+      <vertex>5.0,5.0</vertex>
+      <vertex>-5.0,5.0</vertex>
+      <vertex>-5.0,-5.0</vertex>
+      <vertex>5.0,-5.0</vertex>
+    </vertices>
+    <vertex type="center">0.0,0.0</vertex>
+  </border>
+
+  <!-- Obstacles -->
+  <obstacle type="static" name="o1">
+    <vertices>
+      <vertex>-4.5,-4.5</vertex>
+      <vertex>-2.5,-4.5</vertex>
+      <vertex>-2.5,-2.5</vertex>
+      <vertex>-4.5,-2.5</vertex>
+    </vertices>
+  </obstacle>
+
+  <obstacle type="static" name="o2">
+    <vertices>
+      <vertex>-2.0,-1.0</vertex>
+      <vertex>2.0,-1.0</vertex>
+      <vertex>2.0,1.0</vertex>
+      <vertex>-2.0,1.0</vertex>
+    </vertices>
+  </obstacle>
+
+  <obstacle type="static" name="o3">
+    <vertices>
+      <vertex>-2.0,4.0</vertex>
+      <vertex>2.0,4.0</vertex>
+      <vertex>2.0,5.0</vertex>
+      <vertex>-2.0,5.0</vertex>
+    </vertices>
+  </obstacle>
+</env>

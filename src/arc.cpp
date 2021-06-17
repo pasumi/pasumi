@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 
+#define NOMINMAX // To prevent using max/min macros from minwindef.h
+
 #include "arc.h"
 #include "math.hpp"
 #include "user.h"

@@ -1,0 +1,12 @@
+<env type="virtual" name="Big Square (Virt)">
+  <!-- Border -->
+  <border name="border">
+    <vertices>
+      <vertex>10.0,10.0</vertex>
+      <vertex>-10.0,10.0</vertex>
+      <vertex>-10.0,-10.0</vertex>
+      <vertex>10.0,-10.0</vertex>
+    </vertices>
+    <vertex type="center">0.0,0.0</vertex>
+  </border>
+</env>

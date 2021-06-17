@@ -1,0 +1,105 @@
+<env type="virtual" name="Grand demo (Virt)">
+  <!-- Border -->
+  <border name="border">
+    <vertices>
+      <vertex>10.0,10.0</vertex>
+      <vertex>-10.0,10.0</vertex>
+      <vertex>-10.0,-10.0</vertex>
+      <vertex>10.0,-10.0</vertex>
+    </vertices>
+    <vertex type="center">0.0,0.0</vertex>
+  </border>
+
+  <!-- Obstacles -->
+  <obstacle type="static" name="o1">
+    <vertices>
+      <vertex>-4.5,-4.5</vertex>
+      <vertex>-2.5,-4.5</vertex>
+      <vertex>-3.5,-2.5</vertex>
+    </vertices>
+  </obstacle>
+
+  <obstacle type="static" name="o2">
+    <vertices>
+      <vertex>0.0,2.0</vertex>
+      <vertex>2.0,1.0</vertex>
+      <vertex>1.0,-2.0</vertex>
+      <vertex>-1.0,-2.0</vertex>
+      <vertex>-2.0,1.0</vertex>
+    </vertices>
+  </obstacle>
+
+  <obstacle type="static" name="o3">
+    <vertices>
+      <vertex>-2.0,4.0</vertex>
+      <vertex>2.0,4.0</vertex>
+      <vertex>2.0,5.0</vertex>
+      <vertex>-2.0,5.0</vertex>
+    </vertices>
+  </obstacle>
+
+  <obstacle type="static" name="o4">
+    <vertices>
+      <vertex>-8.5,8.5</vertex>
+      <vertex>-8.5,2.5</vertex>
+      <vertex>-6.5,2.5</vertex>
+      <vertex>-7.0,7.0</vertex>
+      <vertex>-2.5,6.5</vertex>
+      <vertex>-2.5,8.5</vertex>
+    </vertices>
+  </obstacle>
+
+  <obstacle type="static" name="o5">
+    <vertices>
+      <vertex>-8.0,-1.0</vertex>
+      <vertex>-8.0,-2.0</vertex>
+      <vertex>-7.0,-2.0</vertex>
+      <vertex>-7.0,-1.0</vertex>
+    </vertices>
+  </obstacle>
+
+  <obstacle type="static" name="o6">
+    <vertices>
+      <vertex>-7.0,-3.0</vertex>
+      <vertex>-7.0,-4.0</vertex>
+      <vertex>-6.0,-4.0</vertex>
+      <vertex>-6.0,-3.0</vertex>
+    </vertices>
+  </obstacle>
+
+  <obstacle type="static" name="o7">
+    <vertices>
+      <vertex>-9.0,-5.0</vertex>
+      <vertex>-9.0,-7.0</vertex>
+      <vertex>-8.0,-7.0</vertex>
+      <vertex>-8.0,-5.0</vertex>
+    </vertices>
+  </obstacle>
+
+  <obstacle type="static" name="o8">
+    <vertices>
+      <vertex>-6.0,-9.0</vertex>
+      <vertex>-3.0,-7.0</vertex>
+      <vertex>-3.0,-6.0</vertex>
+      <vertex>-7.0,-8.0</vertex>
+    </vertices>
+  </obstacle>
+
+  <obstacle type="static" name="o9">
+    <vertices>
+      <vertex>3.0,-4.0</vertex>
+      <vertex>3.0,-8.0</vertex>
+      <vertex>7.0,-8.0</vertex>
+      <vertex>7.0,-4.0</vertex>
+    </vertices>
+  </obstacle>
+
+  <obstacle type="static" name="o10">
+    <vertices>
+      <vertex>5.0,9.0</vertex>
+      <vertex>4.0,8.0</vertex>
+      <vertex>8.0,4.0</vertex>
+      <vertex>8.0,8.0</vertex>
+    </vertices>
+  </obstacle>
+</env>

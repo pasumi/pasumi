@@ -313,7 +313,7 @@ vec2f user::get_closest_wall(vec2f p) {
     bb.push_back(phys_pos + (radius * heading) - (radius * heading_perpendicular));
     bb.push_back(phys_pos - (radius * heading) - (radius * heading_perpendicular));
 
-    float best_dist = std::numeric_limits<float>::max();
+    float best_dist = math::max_float;
     vec2f best_wall;
     for (int i = 0; i < bb.size(); i++) {
         float dist = geom::line_point_distance(new vec2f(bb[i]), new vec2f(bb[(i+1) % bb.size()]), new vec2f(p));
