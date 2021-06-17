@@ -78,5 +78,5 @@ namespace config {
 	extern int TRIAL_TO_DEBUG;
 	extern int SEED;
 	extern bool SEEDED;
-	extern const char* DATA_DIR;
+	extern const fs::path DATA_DIR;
 }

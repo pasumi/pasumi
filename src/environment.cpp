@@ -42,11 +42,13 @@ void environment::load_xml_file(fs::path filepath) {
 	pugi::xml_document doc;
 	pugi::xml_parse_result result = doc.load_file(filepath.string().c_str());
 
-	this->name = (char*)doc.child("env").attribute("name").as_string();
-	bool is_phys = ((char*)doc.child("env").attribute("type").as_string()) == "physical";
+	this->name = (std::string)(doc.child("env").attribute("name").as_string());
+
+	std::string env_type = (std::string)(doc.child("env").attribute("type").as_string());
+	bool is_phys = env_type.compare(std::string("physical"));
 
 	// Boundary
-	parse_border(doc.child("env").child("border"));
+	parse_border(doc.child("env").child("border"), is_phys);
 
 	// Obstacles
 	for (pugi::xml_node obs = doc.child("env").child("obstacle"); obs; obs = obs.next_sibling("obstacle")) {
@@ -55,7 +57,7 @@ void environment::load_xml_file(fs::path filepath) {
 	}
 }
 
-void environment::parse_border(pugi::xml_node border_node) {
+void environment::parse_border(pugi::xml_node border_node, bool is_phys) {
 	// Get the vertex data from the XML file
 	for (pugi::xml_node vert = border_node.child("vertices").child("vertex"); vert; vert = vert.next_sibling("vertex")) {
 		vec2f v = parse_vertex((char*)vert.child_value());
@@ -70,7 +72,7 @@ void environment::parse_border(pugi::xml_node border_node) {
 	for (int i = 0; i < verts.size(); i++) {
 		vec2f* p1 = verts[i % verts.size()];
 		vec2f* p2 = verts[(i + 1) % verts.size()];
-		walls.push_back(new wall(p1, p2, false, true));
+		walls.push_back(new wall(p1, p2, is_phys, true));
 
 		if (p1->x < min_x) min_x = p1->x;
 		if (p1->x > max_x) max_x = p1->x;
@@ -90,7 +92,8 @@ vec2f environment::parse_vertex(char* vert_string) {
 
 obstacle* environment::parse_obstacle(pugi::xml_node obs_node, bool is_phys) {
 	std::vector<vec2f*> obs_verts;
-	bool is_static = ((char*)obs_node.attribute("type").as_string()) == "static";
+	std::string obs_mvmt_type = (std::string)(obs_node.attribute("type").as_string());
+	bool is_static = obs_mvmt_type.compare(std::string("static")) == 0;
 
 	for (pugi::xml_node vert = obs_node.child("vertices").child("vertex"); vert; vert = vert.next_sibling("vertex")) {
 		vec2f v = parse_vertex((char*)vert.child_value());

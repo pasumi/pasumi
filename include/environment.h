@@ -30,7 +30,12 @@ class environment {
          */
         void environment::load_xml_file(fs::path filepath);
 
-        void environment::parse_border(pugi::xml_node border_node);
+        /**
+         * Parse the border data from a <border> element in an XML environment
+         * description file.
+         * @param border_node The XML <border> element.
+         */
+        void environment::parse_border(pugi::xml_node border_node, bool is_phys);
 
         /**
          * Parse the vertex data from a <vertex> element in an XML environment
@@ -39,6 +44,12 @@ class environment {
          */
         vec2f environment::parse_vertex(char* vert_string);
 
+        /**
+         * Parse the obstacle data from an <obstacle> element in an XML environment
+         * description file.
+         * @param obs_node The XML <obstacle> element.
+         * @param is_phys If the obstacle is a physical or virtual object.
+         */
         obstacle* environment::parse_obstacle(pugi::xml_node obs_node, bool is_phys);
 
         /**
@@ -112,7 +123,7 @@ class environment {
          */
         virtual vec2f sample_point() = 0;
 
-        char* name;
+        std::string name;
         float min_x; // Minimum x-coordinate of the environment boundaries
         float max_x; // Maximum x-coordinate of the environment boundaries
         float min_y; // Minimum y-coordinate of the environment boundaries

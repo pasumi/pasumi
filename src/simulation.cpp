@@ -6,6 +6,7 @@
 #include "simulation.h"
 #include "timestep.h"
 #include "config.h"
+#include "ext/ghc/fs_std.hpp"
 
 simulation::simulation() {
 
@@ -75,9 +76,7 @@ void simulation::step() {
 }
 
 void simulation::write(int frame_count, time_t start_time, time_t end_time) {
-	char filename[300];
-	strcpy(filename, config::DATA_DIR);
-	strcat(filename, "/config.txt");
+	fs::path filename = config::DATA_DIR / fs::path("config.txt");
 
 	std::ofstream my_file;
 	my_file.open(filename);
@@ -119,7 +118,7 @@ void simulation::write(int frame_count, time_t start_time, time_t end_time) {
 		my_file << "\n===SIMULATION STATS===\n";
 		my_file << "Total frames run: " << frame_count << "\n";
 		my_file << "Total elapsed real time: " << (end_time - start_time) << "\n";
-		my_file << "Runtime FPS: " << frame_count / (end_time - start_time) << "\n";
+		my_file << "Runtime FPS: " << frame_count / (end_time - start_time + 1) << "\n";
 		my_file << "Timestep size: " << timestep::dt << "\n";
 		my_file << "Graphics on: " << config::GRAPHICS << "\n";
 		my_file << "Number of users: " << config::users.size()<< "\n";

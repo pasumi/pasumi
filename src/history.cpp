@@ -7,20 +7,11 @@
 #include <iomanip>
 #include <chrono>
 
-#ifdef _WIN32
-#include <direct.h>
-#endif
-#ifdef linux
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <string.h>
-#endif
-
 #include "history.h"
 #include "timestep.h"
 #include "user.h"
 #include "config.h"
+#include "ext/ghc/fs_std.hpp"
 
 history::history() {
 	num_collisions = 0;
@@ -69,106 +60,94 @@ void history::reset() {
 void history::write(user* user_to_write, int path_number) {
 	std::cout.precision(10);
 
-	#ifdef _WIN32
-	struct stat info;
-	if (stat(config::DATA_DIR, &info) != 0) {
-		printf("cannot access %s, so the directory was created.\n", config::DATA_DIR);
+	// Create output directory if it doesn't exist
+	if (!fs::exists(config::DATA_DIR)) {
+		fs::create_directory(config::DATA_DIR);
 	}
-	if (!(info.st_mode & S_IFDIR)) {  // S_ISDIR() doesn't exist on my windows 
-		_mkdir(config::DATA_DIR);
-	}
-	#endif
-	#ifdef linux
-	struct stat st = { 0 };
 
-	if (stat(config::DATA_DIR, &st) == -1) {
-		mkdir(config::DATA_DIR, 0700);
-	}
-	#endif
-	
+	// Log the users' position data across all paths walked
 	time_t t = std::time(0);
 	struct tm* now = localtime(&t);
-
+	char user_and_path[50];
+	sprintf(user_and_path, "user_%d_movement_history_path_#%d_", user_to_write->id, path_number);
 	char formatted_time[80];
-	char temp[50];
-	char filename[300];
-	strcpy(filename, config::DATA_DIR);
-	sprintf(temp, "/user_%d_movement_history_path_#%d_", user_to_write->id, path_number);
-	strcat(filename, temp);
 	strftime(formatted_time, 80, "%Y-%m-%d-%H-%M-%S.csv", now);
-	strcat(filename, formatted_time);
+	fs::path filename; // empty path
+	filename += user_and_path;
+	filename += formatted_time;
+	fs::path log_file = config::DATA_DIR / fs::path(filename);
 
-	std::ofstream my_file;
-	my_file.open(filename);
-	if (my_file.is_open()) {
-		my_file << "timestamp,phys_pos_x,phys_pos_y,virt_pos_x,virt_pos_y,phys_heading,virt_heading,apply_rota,rota_gain,apply_trans,trans_gain,apply_curve,curve_gain,curve_dir,nav_state,collision\n";
+	std::ofstream ofs;
+	ofs.open(log_file);
+	if (ofs.is_open()) {
+		ofs << "timestamp,phys_pos_x,phys_pos_y,virt_pos_x,virt_pos_y,phys_heading,virt_heading,apply_rota,rota_gain,apply_trans,trans_gain,apply_curve,curve_gain,curve_dir,nav_state,collision\n";
 		for (int i = 0; i < time.size(); i++) {
 			redirection_unit redir = rdw_history[i];
 
-			my_file << std::fixed << std::setprecision(10) << time[i] << ","; // timestamp
-			my_file << phys_pos_history[i].x << "," << phys_pos_history[i].y << ","; // phys_pos_x, phys_pos_y
-			my_file << virt_pos_history[i].x << "," << virt_pos_history[i].y << ","; // virt_pos_x, virt_pos_y
-			my_file << std::fixed << std::setprecision(10) << phys_heading_history[i] << ","; // phys_heading
-			my_file << std::fixed << std::setprecision(10) << virt_heading_history[i] << ","; // virt_heading
+			ofs << std::fixed << std::setprecision(10) << time[i] << ","; // timestamp
+			ofs << phys_pos_history[i].x << "," << phys_pos_history[i].y << ","; // phys_pos_x, phys_pos_y
+			ofs << virt_pos_history[i].x << "," << virt_pos_history[i].y << ","; // virt_pos_x, virt_pos_y
+			ofs << std::fixed << std::setprecision(10) << phys_heading_history[i] << ","; // phys_heading
+			ofs << std::fixed << std::setprecision(10) << virt_heading_history[i] << ","; // virt_heading
 
 			// apply_rota, rota_gain
 			if (redir.apply_rota) {
-				my_file << "true," << std::fixed << std::setprecision(10) << redir.rota_gain << ",";
+				ofs << "true," << std::fixed << std::setprecision(10) << redir.rota_gain << ",";
 			}
 			else {
-				my_file << "false," << std::fixed << std::setprecision(10) << redir.rota_gain << ",";
+				ofs << "false," << std::fixed << std::setprecision(10) << redir.rota_gain << ",";
 			}
 			// apply_trans, trans_gain
 			if (redir.apply_trans) {
-				my_file << "true," << std::fixed << std::setprecision(10) << redir.trans_gain << ",";
+				ofs << "true," << std::fixed << std::setprecision(10) << redir.trans_gain << ",";
 			}
 			else {
-				my_file << "false," << std::fixed << std::setprecision(10) << redir.trans_gain << ",";
+				ofs << "false," << std::fixed << std::setprecision(10) << redir.trans_gain << ",";
 			}
 			// apply_curve, curve_gain, curve_dir
 			if (redir.apply_curve) {
-				my_file << "true," << std::fixed << std::setprecision(10) << redir.curve_gain << "," << redir.curve_gain_dir << ",";
+				ofs << "true," << std::fixed << std::setprecision(10) << redir.curve_gain << "," << redir.curve_gain_dir << ",";
 			}
 			else {
-				my_file << "false," << std::fixed << std::setprecision(10) << redir.curve_gain << "," << redir.curve_gain_dir << ",";
+				ofs << "false," << std::fixed << std::setprecision(10) << redir.curve_gain << "," << redir.curve_gain_dir << ",";
 			}
 
 			// nav_state
 			switch (nav_state_history[i]) {
 			case user_state::NAVIGATION_STATE::OK:
-				my_file << "OK" << ",";
+				ofs << "OK" << ",";
 				break;
 			case user_state::NAVIGATION_STATE::RESETTING:
-				my_file << "RESETTING" << ",";
+				ofs << "RESETTING" << ",";
 				break;
 			}
 
 			// collision
-			my_file << collision_history[i];
+			ofs << collision_history[i];
 
-			my_file << "\n";
+			ofs << "\n";
 		}
 	}
-	my_file.close();
+	ofs.close();
 
-	char buffer[300];
-	temp[200];
-	strcpy(buffer, config::DATA_DIR);
-	sprintf(temp, "/user_%d_config.txt", user_to_write->id);
-	strcat(buffer, temp);
-	my_file.open(buffer);
-	if (my_file.is_open()) {
-		my_file << "Radius: " << user_to_write->radius << "\n";
-		my_file << "Number of collisions: " << user_to_write->num_collisions << "\n";
-		my_file << "Angular velocity: " << user_to_write->state.get_angular_vel() << "\n";
-		my_file << "Walking velocity: " << user_to_write->state.get_velocity() << "\n";
-		my_file << "Redirector: " << user_to_write->get_redirector_name() << "\n";
-		my_file << "Resetter: " << user_to_write->get_resetter_name() << "\n";
-		my_file << "Min waypoint distance: " << config::MIN_WAYPOINT_DISTANCE << "\n";
-		my_file << "Max waypoint distance: " << config::MAX_WAYPOINT_DISTANCE << "\n";
-		my_file << "Min waypoint angle: " << config::MIN_WAYPOINT_ANGLE << "\n";
-		my_file << "Max waypoint angle: " << config::MAX_WAYPOINT_ANGLE << "\n";
-		my_file << "Path model: " << user_to_write->state.model.get_path_model_name() << "\n";
+	// Log the user configuration data (things like user velocity and 
+	// motion models).
+	char temp[200];
+	sprintf(temp, "user_%d_config.txt", user_to_write->id);
+	fs::path config_file = config::DATA_DIR / fs::path(temp);
+	ofs.open(config_file);
+	if (ofs.is_open()) {
+		ofs << "Radius: " << user_to_write->radius << "\n";
+		ofs << "Number of collisions: " << user_to_write->num_collisions << "\n";
+		ofs << "Angular velocity: " << user_to_write->state.get_angular_vel() << "\n";
+		ofs << "Walking velocity: " << user_to_write->state.get_velocity() << "\n";
+		ofs << "Redirector: " << user_to_write->get_redirector_name() << "\n";
+		ofs << "Resetter: " << user_to_write->get_resetter_name() << "\n";
+		ofs << "Min waypoint distance: " << config::MIN_WAYPOINT_DISTANCE << "\n";
+		ofs << "Max waypoint distance: " << config::MAX_WAYPOINT_DISTANCE << "\n";
+		ofs << "Min waypoint angle: " << config::MIN_WAYPOINT_ANGLE << "\n";
+		ofs << "Max waypoint angle: " << config::MAX_WAYPOINT_ANGLE << "\n";
+		ofs << "Path model: " << user_to_write->state.model.get_path_model_name() << "\n";
 	}
-	my_file.close();
+	ofs.close();
 }

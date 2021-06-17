@@ -36,7 +36,7 @@ namespace config {
 	/////////////// PHYSICAL ENVIRONMENT ////////////////
 	/////////////////////////////////////////////////////
 	physical_environment phys_env1 = physical_environment(
-		BASE_PATH / fs::path("envs/phys/office.xml")
+		BASE_PATH / fs::path("envs/phys/small_square.xml")
 	);
 
 	std::vector<physical_environment*> phys_envs = std::vector<physical_environment*>{
@@ -47,7 +47,7 @@ namespace config {
 	//////////////// VIRTUAL ENVIRONMENT ////////////////
 	/////////////////////////////////////////////////////
 	virtual_environment virt_env = virtual_environment(
-		BASE_PATH / fs::path("/envs/virt/office.xml")
+		BASE_PATH / fs::path("envs/virt/small_square.xml")
 	);
 
 	/////////////////////////////////////////////////////
@@ -78,8 +78,8 @@ namespace config {
 	float DISTANCE_THRESHOLD = 0.05f;
 	float RESET_DISTANCE_CHECK_VALUE = config::DISTANCE_THRESHOLD + (timestep::dt * 3) + config::USER_RADIUS;
 	float USER_RADIUS = 0.5f;
-	int NUM_PATHS = 100;
-	int NUM_WAYPOINTS = 100;
+	int NUM_PATHS = 1;
+	int NUM_WAYPOINTS = 4;
 	float VELOCITY = 1.0f;
 	float ANGULAR_VELOCITY = 90.0f;
 	std::vector<user*> users = std::vector<user*>{
@@ -103,5 +103,5 @@ namespace config {
 	int TRIAL_TO_DEBUG = 26; // This doesn't even work properly lol
 	int SEED = 3226288;
 	bool SEEDED = true;
-	const char* DATA_DIR = "data";
+	const fs::path DATA_DIR = BASE_PATH / fs::path("data");
 }

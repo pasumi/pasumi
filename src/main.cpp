@@ -39,7 +39,7 @@ void run_no_graphics() {
 
 	std::cout << "Num frames: " << frame_count << std::endl;
 	std::cout << "Elapsed real time: " << end_time - start_time << std::endl;
-	std::cout << "FPS: " << frame_count / (end_time - start_time) << std::endl;
+	std::cout << "FPS: " << frame_count / (end_time - start_time + 1) << std::endl;
 }
 
 int main() {

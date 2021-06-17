@@ -338,6 +338,7 @@ proximity_container* user::get_closest_obstacle(object::SPACE_TYPE space_to_sear
         }
     }
 
+    int t = timestep::num_timesteps;
     assert(closest_object != nullptr && "No closest object found! Is your environment empty?");
     return closest_object;
 }

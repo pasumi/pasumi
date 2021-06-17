@@ -19,6 +19,7 @@ obstacle::obstacle(std::vector<vec2f*> _verts, bool is_phys, bool is_static) {
 	space = (is_phys) ? object::SPACE_TYPE::PHYS : object::SPACE_TYPE::VIRT;
 	mvmt = (is_static) ? object::MOVEMENT_TYPE::STATIC : object::MOVEMENT_TYPE::DYNAMIC;
 	cur_path = 0;
+	path_index = 0;
 
 	for (int i = 0; i < verts.size(); i++) {
 		vec2f* p1 = verts[i % verts.size()];
