@@ -140,10 +140,6 @@ void simulation::write(int frame_count, time_t start_time, time_t end_time) {
 	my_file.close();
 }
 
-void simulation::render() {
-
-}
-
 void simulation::quit_early() {
 	for (user* u : users) {
 		u->write(1);

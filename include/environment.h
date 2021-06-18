@@ -113,21 +113,17 @@ class environment {
         float get_distance_in_direction_from_point(vec2f p, vec2f dir);
 
         /**
+         * Sample a random valid point in the environment.
+         * @return A random valid point in the environment.
+         */
+        vec2f sample_point();
+
+        /**
          * Update the environment to the next timestep.
          */
         virtual void step() = 0;
 
-        /**
-         * Sample a random valid point in the environment.
-         * @return A random valid point in the environment.
-         */
-        virtual vec2f sample_point() = 0;
-
         std::string name;
-        float min_x; // Minimum x-coordinate of the environment boundaries
-        float max_x; // Maximum x-coordinate of the environment boundaries
-        float min_y; // Minimum y-coordinate of the environment boundaries
-        float max_y; // Maximum y-coordinate of the environment boundaries
         bool unbounded; // Flag if the environment has no boundaries.
         float area;
 

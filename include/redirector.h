@@ -14,6 +14,11 @@ class user;
 #include "simulation_state.h"
 #include "resetter.h"
 
+/**
+ * A struct to hold data about what redirection to apply. This is mostly just used
+ * to make the code a little cleaner and to make it easier to log the history of
+ * the redirection that was applied to the user.
+ */
 struct redirection_unit {
 	redirection_unit() {
 		apply_rota = false;
@@ -38,6 +43,12 @@ struct redirection_unit {
 	float bend_gain;
 };
 
+/**
+ * The base class for a redirection controller. The redirection controller is
+ * responsible for applying redirection gains at each timestep in order to steer
+ * the user around in the physical environment. It is the responsibility of the
+ * redirection controller to figure out the best gains to apply to steer the user.
+ */
 class redirector {
 	public:
 		/**
@@ -63,6 +74,16 @@ class redirector {
 		 * given the circle radius as reported in various research. Then, divide 360 
 		 * by this circumference to get the amount of degrees turned for each meter 
 		 * along the circumference.
+		 * 
+		 * An interesting note is that this agrees with the way Mahdi Azmandian
+		 * prefers to implement redirection. As he explained in one of the earlier 
+		 * sections of his dissertation, it is easier to think about rotation and 
+		 * curvature gains as amount of degrees of rotation of the VE injected (and 
+		 * translation gains as the amount of translation of the VE injected). This i 
+		 * preferred because it puts rotation and curvature gains into the same unit, 
+		 * rather than having rotation gains be viewed as "scaling the user's rotation
+		 * movement" and curvature gains as "rotating the VE during straight-line 
+		 * locomotion."
 		 */
 		float curve_radius_to_deg_per_meter();
 
@@ -91,7 +112,6 @@ class redirector {
 
 		char* name;
 		int reset_timer; // Number of timesteps it will take to complete the reset
-		int post_reset_timer;
 		redirection_unit resetting_gains; // Gains to use during resetting
 
 		bool apply_rota;
@@ -109,7 +129,7 @@ class redirector {
 		float cur_curve_gain;
 		float curve_radius;
 		float cur_curve_per_deg;
-		int curve_dir; // curve to the left of the user == 1. curve to the right of the user == -1
+		int curve_dir; // Steer the user towards the left of their current heading direction == 1. Steer the user towards the right of their current heading direction == -1
 		const int CURVE_TO_LEFT = 1;
 		const int CURVE_TO_RIGHT = -1;
 
@@ -120,5 +140,8 @@ class redirector {
 		resetter* reset_policy;
 
 	protected:
+		/**
+		 * Ensures that we apply the correct redirection gains.
+		 */
 		bool check_redirection(redirection_unit unit);
 };

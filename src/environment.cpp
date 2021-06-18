@@ -65,21 +65,17 @@ void environment::parse_border(pugi::xml_node border_node, bool is_phys) {
 	}
 
 	// Create wall objects
-	min_x = math::max_float;
-	max_x = math::min_float;
-	min_y = math::max_float;
-	max_y = math::min_float;
 	for (int i = 0; i < verts.size(); i++) {
 		vec2f* p1 = verts[i % verts.size()];
 		vec2f* p2 = verts[(i + 1) % verts.size()];
 		walls.push_back(new wall(p1, p2, is_phys, true));
-
-		if (p1->x < min_x) min_x = p1->x;
-		if (p1->x > max_x) max_x = p1->x;
-		if (p1->y < min_y) min_y = p1->y;
-		if (p1->y > max_y) max_y = p1->y;
 	}
 	this->center = parse_vertex((char*)border_node.child("vertex").child_value());
+}
+
+vec2f environment::sample_point() {
+	//TODO: Implement this. See github issue.
+	return vec2f();
 }
 
 vec2f environment::parse_vertex(char* vert_string) {

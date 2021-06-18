@@ -69,10 +69,6 @@ std::vector<vec2f*> proximity_container::get_closest_feature() {
     return closest_feature;
 }
 
-float proximity_container::get_distance() {
-    return distance;
-}
-
 float proximity_container::get_distance() const {
     return distance;
 }

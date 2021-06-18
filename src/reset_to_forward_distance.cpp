@@ -3,7 +3,7 @@
 reset_to_forward_distance::reset_to_forward_distance() {
 	name = "Reset to forward distance";
 	for (int i = 0; i < SAMPLE_RATE; i++) {
-		sample_directions.push_back(((2 * math::pi) / SAMPLE_RATE) * i);
+		sample_directions.push_back(((math::two_pi) / SAMPLE_RATE) * i);
 	}
 }
 

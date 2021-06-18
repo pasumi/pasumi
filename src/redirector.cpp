@@ -2,8 +2,6 @@
 #include "config.h"
 
 redirector::redirector() {
-	post_reset_timer = 0;
-
 	cur_rota_gain = 1.0f;
 	cur_trans_gain = 1.0f;
 	cur_curve_per_deg = 0.0f;
@@ -11,8 +9,6 @@ redirector::redirector() {
 
 redirector::redirector(resetter* _resetter) {
 	reset_policy = _resetter;
-	post_reset_timer = 0;
-
 	cur_rota_gain = 1.0f;
 	cur_trans_gain = 1.0f;
 	cur_curve_per_deg = 0.0f;
@@ -21,10 +17,6 @@ redirector::redirector(resetter* _resetter) {
 float redirector::curve_radius_to_deg_per_meter() {
 	return 360.0f / (2.0f * math::pi * curve_radius);
 }
-
-/**
- * Ensures that we apply the correct redirection gains.
- */
 bool redirector::check_redirection(redirection_unit unit) {
 	return (unit.apply_rota && !unit.apply_curve && !unit.apply_trans) ||
 		   (!unit.apply_rota && unit.apply_curve && unit.apply_trans);

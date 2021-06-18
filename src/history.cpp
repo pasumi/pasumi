@@ -75,7 +75,7 @@ void history::write(user* user_to_write, int path_number) {
 	fs::path filename; // empty path
 	filename += user_and_path;
 	filename += formatted_time;
-	fs::path log_file = config::DATA_DIR / fs::path(filename);
+	fs::path log_file = config::DATA_DIR / filename;
 
 	std::ofstream ofs;
 	ofs.open(log_file);

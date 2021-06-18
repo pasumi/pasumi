@@ -51,7 +51,7 @@ class object {
 		int num_vertices;
 		OBJECT_TYPE type;
 		SPACE_TYPE space;
-		MOVEMENT_TYPE mvmt;
+		MOVEMENT_TYPE mvmt; // The movement type of the object
 
 	private:
 };

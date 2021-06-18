@@ -125,11 +125,9 @@ class motion_model {
 		 */
 		bool check_path_for_collision(environment* env, vec2f p1, vec2f p2);
 
-		path cur_path;
-		std::vector<path> all_paths;
-		PATH_MODEL path_model;
+		path cur_path; // Path the user is currently walking on.
+		std::vector<path> all_paths; // All paths the user will walk on.
+		PATH_MODEL path_model; // The model being used to generate user paths.
 		int waypoints;
 		int paths;
-
-		std::vector<std::vector<trajectory_unit>> rvo_paths;
 };

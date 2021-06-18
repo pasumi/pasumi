@@ -7,20 +7,27 @@
 #include "obstacle.h"
 #include "environment.h"
 
+/**
+ * Class for physical environment objects.
+ */
 class physical_environment : public environment {
     public:
+        /**
+         * Default constructor.
+         */
         physical_environment();
-        physical_environment(std::vector<vec2f*> verts, std::vector<obstacle*> obstacles, vec2f center, char* name);
+
+        /**
+         * Construct a physical environment from an XML environment file.
+         */
         physical_environment(fs::path env_file);
-        vec2f get_center();
-        vec2f sample_point();
+
+        /**
+         * Advance the simulation for the physical environment by one timestep.
+         */
         void step();
-        
-        int num_vertices;
-        float min_x;
-        float max_x;
-        float min_y;
-        float max_y;
+
+        vec2f get_center();
 
     private:
 };
