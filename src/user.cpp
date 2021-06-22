@@ -362,10 +362,6 @@ bool user::is_blocking_path(vec2f start, vec2f end, float radius) {
     return (dist < radius);
 }
 
-/**
- * Doesn't actually get used for anything. Only exists because user inherits from
- * the object class, which requires this method to be implemented.
- */
 float user::distance(vec2f p) {
     return length(p - state.get_phys_pos());
 }

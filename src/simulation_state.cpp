@@ -4,9 +4,9 @@ simulation_state::simulation_state() {
 
 }
 
-simulation_state::simulation_state(std::vector<user*> users, std::vector<physical_environment*> physical_envs, virtual_environment* virt_env) {
+simulation_state::simulation_state(std::vector<user*> users, std::vector<physical_environment*> phys_envs, virtual_environment* virt_env) {
     this->users = users;
-    this->phys_envs = physical_envs;
+    this->phys_envs = phys_envs;
     this->virt_env = virt_env;
 }
 

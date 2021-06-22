@@ -47,7 +47,7 @@ namespace config {
 	extern float MAX_WAYPOINT_DISTANCE; // Maximum distance between two waypoints
 	extern float MIN_WAYPOINT_ANGLE;	// Minimum angle between two waypoints
 	extern float MAX_WAYPOINT_ANGLE;	// Maximum angle between two waypoints
-	extern std::string path_file;
+	extern fs::path path_file;
 
 	/////////////////////////////////////////////////////
 	/////////////////////// USERS ///////////////////////

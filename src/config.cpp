@@ -69,7 +69,7 @@ namespace config {
 	float MAX_WAYPOINT_DISTANCE = 6.0f;
 	float MIN_WAYPOINT_ANGLE = -math::pi; 
 	float MAX_WAYPOINT_ANGLE = math::pi; 
-	std::string path_file = "<path to pasumi>/path.txt";
+	fs::path path_file = BASE_PATH / fs::path("path.txt");
 
 	/////////////////////////////////////////////////////
 	/////////////////////// USERS ///////////////////////

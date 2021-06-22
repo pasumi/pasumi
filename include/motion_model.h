@@ -109,8 +109,7 @@ class motion_model {
 		 * Randomly samples a legal point in the environment. This point is used for
 		 * the goal position in the path generation.
 		 * @param virt_env The virtual environment from which we sample a point.
-		 * @param start_pos The starting position from which we will travel to reach the
-		 *					sampled point.
+		 * @param start_pos The starting position from which we will travel to reach				 the sampled point.
 		 * @return The sampled point in the environment.
 		 */
 		vec2f sample_point(virtual_environment* virt_env, vec2f start_pos);

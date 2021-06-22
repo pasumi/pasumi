@@ -63,7 +63,7 @@ class obstacle : public object {
 
 		/**
 		 * Get the wall of the obstacle that is closest to a given point.
-		 * @param p The point to which we wish to find the clsoest obstacle wall.
+		 * @param p The point to which we wish to find the closest obstacle wall.
 		 */
 		vec2f get_closest_wall(vec2f p);
 
