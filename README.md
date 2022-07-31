@@ -25,6 +25,8 @@ A simulator for developing and testing redirected walking controllers.
     cmake ..
     cmake --build .
     ```
+
+If you would like to use the visibility polygon-based RDW controller (described in [this](https://gamma.umd.edu/researchdirections/vrlocomotion/vis_poly/) paper), you will need to install [boost](https://www.boost.org/) and [this visibility polygon library (and its dependencies)](https://github.com/idlebear/VisibilityPolygon).
     
 ## Quick-start Guide
 
