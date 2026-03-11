@@ -1,6 +1,9 @@
 # pasumi
 
-A simulator for developing and testing redirected walking controllers.
+A simulator for developing and testing redirected walking controllers. This repository contains the code used for the following publications:
+[1] Williams, N. L., Bera, A., & Manocha, D. (2021). Arc: Alignment-based redirection controller for redirected walking in complex environments. IEEE Transactions on Visualization and Computer Graphics, 27(5), 2535-2544.
+
+[2] Williams, N. L., Bera, A., & Manocha, D. (2021). Redirected walking in static and dynamic scenes using visibility polygons. IEEE transactions on visualization and computer graphics, 27(11), 4267-4277.
 
 ## Installation
 
